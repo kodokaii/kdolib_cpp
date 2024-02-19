@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/02/19 12:16:12 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/02/19 22:15:49 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 # define KDOLIB_H
 
 # include <string>
+# include <sstream>
 # include <iostream>
-# include "io/get_userInput.hpp"
+# include "io/userinput.hpp"
+# include "str/strconvert.hpp"
 
 typedef unsigned int t_uint;
 
 namespace kdo
 {
-	std::string	strtrim(std::string &str, std::string set);
+	std::string	strtrim(const std::string &str, const std::string set);
 }
 
 #endif
