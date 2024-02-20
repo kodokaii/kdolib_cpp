@@ -2,4 +2,5 @@
 *.pdf
 *.swp
 *.o
+*.a
 a.out
