@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/02/19 22:48:12 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/02/24 13:13:52 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ namespace kdo
 		std::stringstream	ss(str);
 
 		ss >> output;
-		return (ss.fail());
+		return (ss.fail() || ss.get());
 	}
 
 	template<> inline
