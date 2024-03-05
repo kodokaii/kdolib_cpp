@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strconvert.hpp                                     :+:      :+:    :+:   */
+/*   convert.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/02/24 13:28:03 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/05 22:26:06 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRCONVERT_H
-# define STRCONVERT_H
+#pragma once
 
-# include "../kdolib.hpp"
+#include "kdolib.hpp"
 
 namespace kdo
 {
-	template<typename T>
-	int	strconvert(const std::string &str, T &output)
+	template<typename To, typename From>
+	std::ios_base::iostate	convert(To &output, From const &input)
 	{
-		std::stringstream	ss(str);
+		std::stringstream	ss;
 
+		ss << input;
 		ss >> output;
-		return (!ss || ss.peek() != EOF);
+		return (ss.rdstate());
 	}
 
 	template<> inline
-	int	strconvert(const std::string &str, std::string &output)
+	std::ios_base::iostate	convert(std::string &output, std::string const &input)
 	{
-		output = str;
-		return (0);
+		output = input;
+		return (std::ios_base::iostate());
 	}
 }
-
-#endif
