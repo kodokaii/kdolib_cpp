@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/06 16:56:22 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:23:04 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ namespace kdo
 		
 		std::cout << prompt;	
 		std::getline(std::cin, line);
-		return (kdo::convert(line, output).fail);
+		return (kdo::convert(output, line) && std::ios::failbit);
 	}
 }
