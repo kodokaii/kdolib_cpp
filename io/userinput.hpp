@@ -6,13 +6,15 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/05 23:16:17 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:56:22 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-# include "../kdolib.hpp"
+#include <string>
+#include <iostream>
+#include "convert.hpp"
 
 namespace kdo
 {
