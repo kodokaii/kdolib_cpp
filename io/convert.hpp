@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/06 16:54:58 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:25:04 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ namespace kdo
 		return (ss.rdstate());
 	}
 
-	template<>
+	template<> inline
 	std::ios_base::iostate	convert(std::string &output, std::string const &input)
 	{
 		output = input;
