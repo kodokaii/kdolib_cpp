@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/07 03:22:44 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:44:26 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define COLOR_MAGENTA  "\x1B[35m"
 # define COLOR_CYAN     "\x1B[36m"
 # define COLOR_WHITE    "\x1B[37m"
+
+#define INVALID_FD -1
 
 typedef unsigned int t_uint;
 
