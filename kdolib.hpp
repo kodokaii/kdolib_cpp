@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/08 10:44:26 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:16:41 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sstream>
 #include <unistd.h>
 #include <iostream>
+#include <stdint.h>
 #include "io/convert.hpp"
 #include "io/userinput.hpp"
 
