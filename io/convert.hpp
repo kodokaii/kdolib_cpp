@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/06 18:42:04 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:14:01 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,14 @@ namespace kdo
 	{
 		output = input;
 		return (std::ios_base::iostate());
+	}
+
+	template<typename integer>
+	std::string	itoa(integer n)
+	{
+		std::string	res;
+		
+		kdo::convert(res, n);
+		return (res);
 	}
 }
