@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/13 21:42:32 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/14 00:50:09 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #include <cstdio>
 #include <string>
 #include <cstdlib>
+#include <cstdarg>
 #include <sstream>
 #include <unistd.h>
 #include <iostream>
 #include <stdint.h>
-#include <stdarg.h>
 #include <limits.h>
 #include "io/convert.hpp"
 #include "io/userinput.hpp"
