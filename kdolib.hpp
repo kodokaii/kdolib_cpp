@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/12 14:33:52 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:42:32 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 #define INVALID_FD		-1
 #define INVALID_SIZE	-1
 
-typedef unsigned int t_uint;
+typedef unsigned int	t_uint;
+typedef unsigned char	t_uchar;
 
 namespace kdo
 {
