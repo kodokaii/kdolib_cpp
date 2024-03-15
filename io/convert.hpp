@@ -6,12 +6,13 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/13 14:14:01 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:36:29 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include <iomanip>
 #include <sstream>
 #include <iostream>
 
@@ -35,11 +36,11 @@ namespace kdo
 	}
 
 	template<typename integer>
-	std::string	itoa(integer n)
+	std::string	itoa(integer n, int base = 10)
 	{
-		std::string	res;
+		std::stringstream	ss;
 		
-		kdo::convert(res, n);
-		return (res);
+		ss << std::setbase(base) << n;
+		return (ss.str());
 	}
 }
