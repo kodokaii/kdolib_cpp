@@ -6,24 +6,24 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/14 00:50:09 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/17 23:00:15 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include <map>
 #include <cerrno>
 #include <cstdio>
 #include <string>
 #include <cstdlib>
 #include <cstdarg>
 #include <sstream>
+#include <vector>
 #include <unistd.h>
 #include <iostream>
 #include <stdint.h>
 #include <limits.h>
-#include "io/convert.hpp"
-#include "io/userinput.hpp"
 
 #define EXIT_ERRNO -1
 
@@ -47,3 +47,21 @@ namespace kdo
 {
 	std::string	strtrim(const std::string &str, const std::string set);
 }
+
+#include "io/convert.hpp"
+#include "io/userinput.hpp"
+
+#include "BNF/BNFInher.hpp"
+#include "BNF/BNFFind.hpp"
+#include "BNF/BNFParser.hpp"
+#include "BNF/BNFChar.hpp"
+#include "BNF/BNFStr.hpp"
+#include "BNF/BNFRange.hpp"
+#include "BNF/BNFRep.hpp"
+#include "BNF/BNFCat.hpp"
+#include "BNF/BNFAlts.hpp"
+#include "BNF/BNFVar.hpp"
+
+#include "Socket/Socket.hpp"
+#include "Socket/SocketTcpClient.hpp"
+#include "Socket/SocketTcpServer.hpp"

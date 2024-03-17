@@ -7,7 +7,20 @@ CLONE 		= git clone --depth=1
 CPPFLAGS	+= -Wall -Wextra -Werror -std=c++98
 CPPLINKS	=
 
-SRC 		= str/strtrim.cpp
+SRC 		= BNF/BNFAlts.cpp\
+			  BNF/BNFCat.cpp\
+			  BNF/BNFChar.cpp\
+			  BNF/BNFFind.cpp\
+			  BNF/BNFInher.cpp\
+			  BNF/BNFParser.cpp\
+			  BNF/BNFRange.cpp\
+			  BNF/BNFRep.cpp\
+			  BNF/BNFStr.cpp\
+			  BNF/BNFVar.cpp\
+			  Socket/Socket.cpp\
+			  Socket/SocketTcpClient.cpp\
+			  Socket/SocketTcpServer.cpp\
+			  str/strtrim.cpp
 
 OBJ 		= $(SRC:.cpp=.o)
 
