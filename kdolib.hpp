@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 23:00:15 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/17 23:10:30 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <cerrno>
 #include <cstdio>
 #include <string>
+#include <csignal>
 #include <cstdlib>
 #include <cstdarg>
 #include <sstream>
