@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 23:01:01 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/17 23:46:50 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ class SocketTcpClient;
 class SocketTcpServer: protected Socket
 {
 	protected:
-		bool							connected;
-		int								backlog;
-		int								addrError;
+		bool								connected;
+		int									backlog;
+		int									addrError;
 		std::map<int, SocketTcpClient *>	clients;
 
 		int				getAddrs(struct addrinfo **res, std::string const &port);

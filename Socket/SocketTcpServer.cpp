@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 17:25:39 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:05:44 by nlaerema         ###   ########.fr       */
 /*                                                                            */ /* ************************************************************************** */
 
 #include "SocketTcpServer.hpp"
@@ -121,24 +121,35 @@ int				SocketTcpServer::broadcast(void const *buf, size_t len, int flags)
 
 void			SocketTcpServer::disconnect(void)
 {
-	if (this->isConnected())
-	{
-		this->close();
-		this->connected = false;
-		this->clients.clear();
-	}
+	std::map<int, SocketTcpClient *>::iterator	cr;
+
+	this->close();
+	this->connected = false;
+	for (cr = this->clients.begin(); cr != this->clients.end(); cr++)
+		delete cr->second;
+	this->clients.clear();
 }
 
 void			SocketTcpServer::disconnectClient(int clientSocket)
 {
-	this->clients.erase(clientSocket);
+	std::map<int, SocketTcpClient *>::iterator  cr;
+
+	cr = this->clients.find(clientSocket);
+	if (cr != this->clients.end())
+	{
+		delete cr->second;
+		this->clients.erase(cr);
+	}
 }
 
 int				SocketTcpServer::getClient(SocketTcpClient const *&client, int clientSocket)
 {
-	if (this->clients.find(clientSocket) == this->clients.end())
+	std::map<int, SocketTcpClient *>::iterator  cr;
+
+	cr = this->clients.find(clientSocket);
+	if (cr == this->clients.end())
 		return (EXIT_FAILURE);
-	client = this->clients[clientSocket];
+	client = cr->second;
 	return (EXIT_SUCCESS);
 }
 
