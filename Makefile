@@ -20,7 +20,8 @@ SRC 		= BNF/BNFAlts.cpp\
 			  Socket/Socket.cpp\
 			  Socket/SocketTcpClient.cpp\
 			  Socket/SocketTcpServer.cpp\
-			  str/strtrim.cpp
+			  str/strtrim.cpp\
+			  str/upper.cpp
 
 OBJ 		= $(SRC:.cpp=.o)
 
