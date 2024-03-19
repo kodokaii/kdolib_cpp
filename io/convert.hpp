@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/15 11:36:29 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:29:34 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ namespace kdo
 		ss << std::setbase(base) << n;
 		return (ss.str());
 	}
+
+	bool	allConverted(std::ios_base::iostate state);
 }

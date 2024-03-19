@@ -17,6 +17,7 @@ SRC 		= BNF/BNFAlts.cpp\
 			  BNF/BNFRep.cpp\
 			  BNF/BNFStr.cpp\
 			  BNF/BNFVar.cpp\
+			  io/convert.cpp\
 			  Socket/Socket.cpp\
 			  Socket/SocketTcpClient.cpp\
 			  Socket/SocketTcpServer.cpp\
