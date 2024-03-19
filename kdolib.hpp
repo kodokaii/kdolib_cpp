@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/18 12:14:57 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:38:02 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <cstdio>
 #include <string>
 #include <vector>
+#include <cstring>
 #include <csignal>
 #include <cstdlib>
 #include <cstdarg>
@@ -26,6 +27,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <limits.h>
+#include <stdexcept>
 
 #define EXIT_ERRNO -1
 
