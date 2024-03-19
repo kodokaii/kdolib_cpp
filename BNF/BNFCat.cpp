@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 12:13:45 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:17:12 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,18 +95,18 @@ ssize_t		BNFCat::parse(std::string const &str, size_t start)
 	return (finalLen);
 }
 
-BNFFind     BNFRep::find(std::string const &name, size_t depth) const
+BNFFind     BNFCat::find(std::string const &name, size_t depth) const
 {
     BNFFind res;
     t_uint  cr;
 
-    if (depth)
+	if (depth)
     {
-      for (cr = 0; cr < this->ruleEnd; cr++)
-          res.merge((*this->rules[cr]).find(name, depth - 1));
-      res.pushParent(*this);
-      if (this->name == name)
-          res.push_back(BNFInher(*this));
+	  for (cr = 0; cr < this->ruleEnd; cr++)
+		  res.merge((*this->rules[cr]).find(name, depth - 1));
+	  res.pushParent(*this);
+	  if (this->name == name)
+		  res.push_back(BNFInher(*this));
     }
     return (res);
 }

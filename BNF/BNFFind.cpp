@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/15 10:24:43 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:36:27 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ BNFFind		BNFFind::isFail(void) const
 
 	for (cr = 0; cr < this->size(); cr++)
 	{
-		if ((*this)[cr].getInherErrorLen() != BNF_ERROR_LEN_NONE)
+		if ((*this)[cr].getErrorLen() != BNF_ERROR_LEN_NONE)
 			res.push_back((*this)[cr]);
 	}
 	return (res);
@@ -70,11 +70,38 @@ BNFFind		BNFFind::isSuccess(void) const
 
 	for (cr = 0; cr < this->size(); cr++)
 	{
+		if ((*this)[cr].getErrorLen() == BNF_ERROR_LEN_NONE)
+			res.push_back((*this)[cr]);
+	}
+	return (res);
+}
+
+BNFFind		BNFFind::isInherFail(void) const
+{
+	BNFFind	res;
+	t_uint	cr;
+
+	for (cr = 0; cr < this->size(); cr++)
+	{
+		if ((*this)[cr].getInherErrorLen() != BNF_ERROR_LEN_NONE)
+			res.push_back((*this)[cr]);
+	}
+	return (res);
+}
+
+BNFFind		BNFFind::isInherSuccess(void) const
+{
+	BNFFind	res;
+	t_uint	cr;
+
+	for (cr = 0; cr < this->size(); cr++)
+	{
 		if ((*this)[cr].getInherErrorLen() == BNF_ERROR_LEN_NONE)
 			res.push_back((*this)[cr]);
 	}
 	return (res);
 }
+
 
 void		BNFFind::pushParent(BNFParser const &parent)
 {
