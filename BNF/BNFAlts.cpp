@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 09:57:41 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:17:43 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,20 @@ ssize_t		BNFAlts::parse(std::string const &str, size_t start)
 	return (finalLen);
 }
 
+BNFFind     BNFAlts::find(std::string const &name, size_t depth) const
+{
+	BNFFind	res;
+
+	if (depth)
+	{
+		res.merge((*this->rules[this->ruleEnd]).find(name, depth - 1));
+		res.pushParent(*this);
+		if (this->name == name)
+			res.push_back(BNFInher(*this));
+	}
+	return (res);
+}
+
 BNFAlts     BNFAlts::operator|(BNFParser const &other) const
 {
 	BNFAlts	res(*this);
@@ -159,13 +173,7 @@ BNFRep      BNFAlts::operator-(size_t min) const
 
 BNFFind		BNFAlts::operator[](std::string const &name) const
 {
-	BNFFind	res;
-
-	res.merge((*this->rules[this->ruleEnd])[name]);
-	res.pushParent(*this);
-	if (this->name == name)
-		res.push_back(BNFInher(*this));
-	return (res);
+	return (this->find(name));
 }
 
 BNFAlts	&BNFAlts::operator=(BNFAlts const &other)

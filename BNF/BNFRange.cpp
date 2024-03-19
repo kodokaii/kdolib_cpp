@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 11:14:39 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:56:32 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@ ssize_t		BNFRange::parse(std::string const &str, size_t start)
 	this->value = str.substr(start, 1);
 	this->errorLen = BNF_ERROR_POS_NONE;
 	return (1);
+}
+
+BNFFind     BNFRange::find(std::string const &name, size_t depth) const
+{
+    BNFFind res;
+
+    if (depth && this->name == name)
+        res.push_back(BNFInher(*this));
+    return (res);
 }
 
 BNFAlts		BNFRange::operator|(BNFParser const &other) const
@@ -117,11 +126,7 @@ BNFRep      BNFRange::operator-(size_t min) const
 
 BNFFind		BNFRange::operator[](std::string const &name) const
 {
-	BNFFind	res;
-
-	if (this->name == name)
-		res.push_back(BNFInher(*this));
-	return (res);
+	return (this->find(name));
 }
 
 BNFRange	&BNFRange::operator=(BNFRange const &other)

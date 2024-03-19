@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 11:16:19 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:02:17 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,22 @@ ssize_t		BNFRep::parse(std::string const &str, size_t start)
 	return (finalLen);
 }
 
+BNFFind     BNFRep::find(std::string const &name, size_t depth) const
+{
+	BNFFind	res;
+	t_uint	cr;
+
+	if (depth)
+	{
+		for (cr = 0; cr < this->ruleEnd; cr++)
+			res.merge((*this->rules[cr]).find(name, depth - 1));
+		res.pushParent(*this);
+		if (this->name == name)
+			res.push_back(BNFInher(*this));
+	}
+	return (res);
+}
+
 BNFAlts		BNFRep::operator|(BNFParser const &other) const
 {
 	return (BNFAlts(2, this, &other));
@@ -165,15 +181,7 @@ BNFRep		BNFRep::operator-(size_t min) const
 
 BNFFind		BNFRep::operator[](std::string const &name) const
 {
-	BNFFind	res;
-	t_uint	cr;
-
-	for (cr = 0; cr < this->ruleEnd; cr++)
-		res.merge((*this->rules[cr])[name]);
-	res.pushParent(*this);
-	if (this->name == name)
-		res.push_back(BNFInher(*this));
-	return (res);
+	return (this->find(name));
 }
 
 BNFRep	&BNFRep::operator=(BNFRep const &other)
