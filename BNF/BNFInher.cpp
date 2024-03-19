@@ -12,7 +12,7 @@
 
 #include "BNFInher.hpp"
 
-BNFInher::BNFInher(BNFParser const &son):	inherErrorLen(BNF_ERROR_POS_NONE),
+BNFInher::BNFInher(BNFParser const &son):	inherErrorLen(BNF_ERROR_LEN_NONE),
 											name(son.getName()),
 											value(son.getValue()),
 											errorLen(son.getErrorLen())

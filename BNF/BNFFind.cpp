@@ -57,7 +57,7 @@ BNFFind		BNFFind::isFail(void) const
 
 	for (cr = 0; cr < this->size(); cr++)
 	{
-		if ((*this)[cr].getInherErrorLen() != BNF_ERROR_POS_NONE)
+		if ((*this)[cr].getInherErrorLen() != BNF_ERROR_LEN_NONE)
 			res.push_back((*this)[cr]);
 	}
 	return (res);
@@ -70,7 +70,7 @@ BNFFind		BNFFind::isSuccess(void) const
 
 	for (cr = 0; cr < this->size(); cr++)
 	{
-		if ((*this)[cr].getInherErrorLen() == BNF_ERROR_POS_NONE)
+		if ((*this)[cr].getInherErrorLen() == BNF_ERROR_LEN_NONE)
 			res.push_back((*this)[cr]);
 	}
 	return (res);

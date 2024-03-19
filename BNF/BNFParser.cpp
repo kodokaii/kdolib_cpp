@@ -14,7 +14,7 @@
 #include "BNFParser.hpp"
 
 BNFParser::BNFParser(std::string const &name):	name(name),
-												errorLen(BNF_ERROR_POS_UNINITIALIZED)
+												errorLen(BNF_ERROR_LEN_UNINITIALIZED)
 {
 }
 

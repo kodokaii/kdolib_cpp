@@ -53,7 +53,7 @@ ssize_t		BNFRange::parse(std::string const &str, size_t start)
 		return (BNF_PARSE_ERROR);
 	}
 	this->value = str.substr(start, 1);
-	this->errorLen = BNF_ERROR_POS_NONE;
+	this->errorLen = BNF_ERROR_LEN_NONE;
 	return (1);
 }
 
