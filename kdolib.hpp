@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 11:38:02 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:11:17 by cgodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <cstring>
 #include <csignal>
 #include <cstdlib>
+#include <cctype>
+#include <algorithm>
 #include <cstdarg>
 #include <fstream>
 #include <sstream>
@@ -51,6 +53,7 @@ namespace kdo
 {
 	std::string	strtrim(const std::string &str, const std::string set);
 	std::string toUppercase(std::string str);
+	bool 		iequals(const std::string &a, const std::string &b);
 }
 
 #include "io/convert.hpp"
