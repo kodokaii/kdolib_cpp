@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 10:44:45 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:14:39 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ BNFParser	*BNFRange::clone(void) const
 
 ssize_t		BNFRange::parse(std::string const &str, size_t start)
 {
-	this->value.clear();
 	if (str.length() < start || str[start] < this->cMin || this->cMax < str[start])
 	{
-		this->errorPos = start;
+		this->value.clear();
+		this->errorLen = 0;
 		return (BNF_PARSE_ERROR);
 	}
 	this->value = str.substr(start, 1);
-	this->errorPos = BNF_ERROR_POS_NONE;
+	this->errorLen = BNF_ERROR_POS_NONE;
 	return (1);
 }
 

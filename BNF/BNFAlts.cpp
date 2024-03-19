@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 12:07:24 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:57:41 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ ssize_t		BNFAlts::parse(std::string const &str, size_t start)
 	ssize_t	len;
 	t_uint	cr;
 
-	this->value.clear();
 	this->ruleEnd = 0;
 	for (cr = 0; cr < this->rules.size(); cr++)
 	{
@@ -82,11 +81,11 @@ ssize_t		BNFAlts::parse(std::string const &str, size_t start)
 			this->ruleEnd = cr;
 		}
 		else if (finalLen == BNF_PARSE_ERROR
-				&& this->rules[cr]->getErrorPos() < this->rules[this->ruleEnd]->getErrorPos())
+				&& this->rules[cr]->getErrorLen() < this->rules[this->ruleEnd]->getErrorLen())
 			this->ruleEnd = cr;
 	}
 	this->value = this->rules[this->ruleEnd]->getValue();
-	this->errorPos = this->rules[this->ruleEnd]->getErrorPos();
+	this->errorLen = this->rules[this->ruleEnd]->getErrorLen();
 	return (finalLen);
 }
 

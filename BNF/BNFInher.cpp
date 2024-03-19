@@ -12,19 +12,19 @@
 
 #include "BNFInher.hpp"
 
-BNFInher::BNFInher(BNFParser const &son):	inherErrorPos(BNF_ERROR_POS_NONE),
+BNFInher::BNFInher(BNFParser const &son):	inherErrorLen(BNF_ERROR_POS_NONE),
 											name(son.getName()),
 											value(son.getValue()),
-											errorPos(son.getErrorPos())
+											errorLen(son.getErrorLen())
 {
 }
 
 
 BNFInher::BNFInher(BNFInher const &other):	inher(other.inher),
-											inherErrorPos(other.inherErrorPos),
+											inherErrorLen(other.inherErrorLen),
 											name(other.name),
 											value(other.value),
-											errorPos(other.errorPos)
+											errorLen(other.errorLen)
 {
 }
 
@@ -35,7 +35,7 @@ BNFInher::~BNFInher(void)
 size_t				BNFInher::pushParent(BNFParser const &parent)
 {
 	this->inher.push_back(parent.getName());
-	this->inherErrorPos = std::max(this->inherErrorPos, parent.getErrorPos());
+	this->inherErrorLen = std::max(this->inherErrorLen, parent.getErrorLen());
 	return (this->inher.size());
 }
 
@@ -76,22 +76,22 @@ std::string const	&BNFInher::getValue(void) const
 	return (this->value);
 }
 
-ssize_t				BNFInher::getErrorPos(void) const
+ssize_t				BNFInher::getErrorLen(void) const
 {
-	return (this->errorPos);
+	return (this->errorLen);
 }
 
-ssize_t				BNFInher::getInherErrorPos(void) const
+ssize_t				BNFInher::getInherErrorLen(void) const
 {
-	return (this->inherErrorPos);
+	return (this->inherErrorLen);
 }
 
 BNFInher			&BNFInher::operator=(BNFInher const &other)
 {
 	this->inher = other.inher;
-	this->inherErrorPos = other.inherErrorPos;
+	this->inherErrorLen = other.inherErrorLen;
 	this->name = other.name;
 	this->value = other.value;
-	this->errorPos = other.errorPos;
+	this->errorLen = other.errorLen;
 	return (*this);
 }

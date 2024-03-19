@@ -20,10 +20,10 @@ class BNFInher
 {
 	protected:
 		std::vector<std::string>	inher;
-		ssize_t						inherErrorPos;
+		ssize_t						inherErrorLen;
 		std::string					name;
 		std::string					value;
-		ssize_t						errorPos;
+		ssize_t						errorLen;
 
 	public:
 							BNFInher(BNFParser const &son);
@@ -34,7 +34,7 @@ class BNFInher
 		bool				isHeir(t_uint count, va_list argList) const;
 		std::string const	&getName(void) const;
 		std::string const	&getValue(void) const;
-		ssize_t				getErrorPos(void) const;
-		ssize_t				getInherErrorPos(void) const;
+		ssize_t				getErrorLen(void) const;
+		ssize_t				getInherErrorLen(void) const;
 		BNFInher			&operator=(BNFInher const &other);
 };

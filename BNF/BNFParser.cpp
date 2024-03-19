@@ -14,13 +14,13 @@
 #include "BNFParser.hpp"
 
 BNFParser::BNFParser(std::string const &name):	name(name),
-												errorPos(BNF_ERROR_POS_UNINITIALIZED)
+												errorLen(BNF_ERROR_POS_UNINITIALIZED)
 {
 }
 
 BNFParser::BNFParser(BNFParser const &other):	name(other.name),
 												value(other.value),
-												errorPos(other.errorPos)
+												errorLen(other.errorLen)
 {
 }
 
@@ -38,16 +38,16 @@ std::string const	&BNFParser::getValue(void) const
 	return (this->value);
 }
 
-ssize_t				BNFParser::getErrorPos(void) const
+ssize_t				BNFParser::getErrorLen(void) const
 {
-	return (this->errorPos);
+	return (this->errorLen);
 }
 
 BNFParser			&BNFParser::operator=(BNFParser const &other)
 {
 	this->name = other.name;
 	this->value = other.value;
-	this->errorPos = other.errorPos;
+	this->errorLen = other.errorLen;
 	return (*this);
 }
 

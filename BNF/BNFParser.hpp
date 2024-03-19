@@ -30,7 +30,7 @@ class BNFParser
 	protected:
 		std::string	name;
 		std::string	value;
-		ssize_t		errorPos;
+		ssize_t		errorLen;
 
 	public:
 							BNFParser(std::string const &name = "<>");
@@ -38,7 +38,7 @@ class BNFParser
 		virtual				~BNFParser(void);
 		std::string const	&getName(void) const;
 		std::string const	&getValue(void) const;
-		ssize_t				getErrorPos(void) const;
+		ssize_t				getErrorLen(void) const;
 		virtual std::string	getFormatName(void) const = 0;
 		virtual BNFParser	*clone(void) const = 0;
 		virtual ssize_t		parse(std::string const &str, size_t start = 0) = 0;

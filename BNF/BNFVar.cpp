@@ -48,7 +48,7 @@ ssize_t		BNFVar::parse(std::string const &str, size_t start)
 
 	res = this->rule->parse(str, start);
 	this->value = this->rule->getValue();
-	this->errorPos = this->rule->getErrorPos();
+	this->errorLen = this->rule->getErrorLen();
 	return(res);
 }
 
@@ -125,7 +125,7 @@ BNFVar	&BNFVar::operator=(BNFVar const &other)
 {
 	delete this->rule;
 	this->value = other.getValue();
-	this->errorPos = other.getErrorPos();
+	this->errorLen = other.getErrorLen();
 	this->rule = other.rule->clone();
 	return (*this);
 }
@@ -134,7 +134,7 @@ BNFVar	&BNFVar::operator=(BNFParser const &other)
 {
 	delete this->rule;
 	this->value = other.getValue();
-	this->errorPos = other.getErrorPos();
+	this->errorLen = other.getErrorLen();
 	this->rule = other.clone();
 	return (*this);
 }

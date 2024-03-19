@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BNFStr.cpp                                      :+:      :+:    :+:   */
+/*   BNFStr.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 12:27:00 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:17:25 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ BNFParser	*BNFStr::clone(void) const
 
 ssize_t		BNFStr::parse(std::string const &str, size_t start)
 {
-	this->value.clear();
 	if (str.length() < start + this->str.length()
 		|| str.compare(start, this->str.length(), this->str))
 	{
-		this->errorPos = start;
+		this->value.clear();
+		this->errorLen = 0;
 		return (BNF_PARSE_ERROR);
 	}
 	this->value = str.substr(start, this->str.length());
-	this->errorPos = BNF_ERROR_POS_NONE;
+	this->errorLen = BNF_ERROR_POS_NONE;
 	return (this->str.length());
 }
 
