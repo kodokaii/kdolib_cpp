@@ -26,8 +26,7 @@ namespace kdo
 			elems.push_back(elem);
 			raw.erase(0, pos + 1);
 		}
-		if (elems.size() == 0)
-			elems.push_back(raw);
+		elems.push_back(raw);
 		return (elems);
 	}
 }
