@@ -21,6 +21,7 @@ SRC 		= BNF/BNFAlts.cpp\
 			  Socket/Socket.cpp\
 			  Socket/SocketTcpClient.cpp\
 			  Socket/SocketTcpServer.cpp\
+			  str/string_view.cpp\
 			  str/strtrim.cpp\
 			  str/stricmp.cpp\
 			  str/strupper.cpp
