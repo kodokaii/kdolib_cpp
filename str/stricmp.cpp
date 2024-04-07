@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   upper.cpp                                          :+:      :+:    :+:   */
+/*   stricmp.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlaerema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 01:49:25 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/18 01:54:43 by nlaerema         ###   ########.fr       */
+/*   Created: 2024/04/07 20:45:41 by nlaerema          #+#    #+#             */
+/*   Updated: 2024/04/07 20:45:42 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 namespace kdo
 {
-	std::string	toUppercase(std::string str)
+	int	stricmp(std::string const &s1 , std::string const &s2)
 	{
-		std::string::iterator   cr; 
+		size_t	i;
 
-		for (cr = str.begin(); cr != str.end(); cr++)
-			*cr = toupper(*cr);
-		return (str);
+		i = 0;
+		while (s1[i] && std::tolower(s1[i]) == std::tolower(s2[i]))
+			i++;
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/27 11:16:22 by cgodard          ###   ########.fr       */
+/*   Updated: 2024/04/07 20:50:14 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ typedef unsigned char	t_uchar;
 namespace kdo
 {
 	std::string					strtrim(const std::string &str, const std::string set);
-	std::string 				toUppercase(std::string str);
-	bool 						iequals(const std::string &a, const std::string &b);
-	std::vector<std::string>	splitlist(std::string raw);
+	std::string					strupper(std::string str);
+	int							stricmp(std::string const &s1 , std::string const &s2);
+
 }
+
+#include "str/string_view.hpp"
 
 #include "io/convert.hpp"
 #include "io/userinput.hpp"
