@@ -6,21 +6,19 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 22:59:15 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/08 23:41:05 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../kdolib.hpp"
 #include "BNFParser.hpp"
 
-BNFParser::BNFParser(std::string const &name):	name(name),
-												errorLen(BNF_ERROR_LEN_UNINITIALIZED)
+BNFParser::BNFParser(std::string const &name):	name(name)
 {
 }
 
-BNFParser::BNFParser(BNFParser const &other):	name(other.name),
-												value(other.value),
-												errorLen(other.errorLen)
+BNFParser::BNFParser(BNFParser const &other):	kdo::string_view(other),
+												name(other.name)
 {
 }
 
@@ -33,24 +31,82 @@ std::string const	&BNFParser::getName(void) const
 	return (this->name);
 }
 
-std::string const	&BNFParser::getValue(void) const
+kdo::State const	&BNFParser::getState(void) const
 {
-	return (this->value);
+	return (this->state);
 }
 
-ssize_t				BNFParser::getErrorLen(void) const
+std::string			BNFParser::getFormatName(void) const
 {
-	return (this->errorLen);
+	return (this->name);
 }
 
-BNFParser			&BNFParser::operator=(BNFParser const &other)
+BNFFind				BNFParser::find(std::string const &name, size_t depth) const
 {
-	this->name = other.name;
-	this->value = other.value;
-	this->errorLen = other.errorLen;
-	return (*this);
+	BNFFind res;
+
+	if (depth && this->name == name)
+		res.push_back(BNFInher(*this));
+	return (res);
 }
 
+BNFAlts				BNFParser::operator|(BNFParser const &other) const
+{
+	return (BNFAlts(2, this, &other));
+}
+
+BNFAlts				BNFParser::operator|(std::string const &str) const
+{
+	BNFStr   tmp(str);
+
+	return (BNFAlts(2, this, &tmp));
+}
+
+BNFAlts				BNFParser::operator|(char c) const
+{
+	BNFChar   tmp(c);
+
+	return (BNFAlts(2, this, &tmp));
+}
+
+BNFCat				BNFParser::operator&(BNFParser const &other) const
+{
+	return (BNFCat(2, this, &other));
+}
+
+BNFCat				BNFParser::operator&(std::string const &str) const
+{
+	BNFStr	tmp(str);
+
+	return (BNFCat(2, this, &tmp));
+}
+
+BNFCat				BNFParser::operator&(char c) const
+{
+	BNFChar   tmp(c);
+
+	return (BNFCat(2, this, &tmp));
+}
+
+BNFRep				BNFParser::operator%(size_t n) const
+{
+	return (BNFRep(*this, n, n));
+}
+
+BNFRep				BNFParser::operator!(void) const
+{
+	return (BNFRep(*this, 0, 1));
+}
+
+BNFRep				BNFParser::operator~(void) const
+{
+	return (BNFRep(*this, 0, BNF_INFINI));
+}
+
+BNFFind				BNFParser::operator[](std::string const &name) const
+{
+	return (this->find(name));
+}
 
 BNFAlts	operator|(std::string const &str, BNFParser const &parser)
 {
@@ -75,8 +131,15 @@ BNFCat	operator&(std::string const &str, BNFParser const &parser)
 
 BNFCat	operator&(char c, BNFParser const &parser)
 {
-
 	BNFChar	tmp(c);
 
 	return (BNFCat(2, &tmp, &parser));
+}
+
+BNFParser			&BNFParser::operator=(BNFParser const &other)
+{
+	*static_cast<kdo::string_view *>(this) = other;
+	this->name = other.name;
+	this->state = other.state;
+	return (*this);
 }

@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 11:54:24 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/08 23:37:28 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,99 +31,22 @@ BNFChar::~BNFChar(void)
 {
 }
 
-std::string	BNFChar::getFormatName(void) const
-{
-	return (this->name);
-}
-
 BNFParser	*BNFChar::clone(void) const
 {
 	return (new BNFChar(*this));
 }
 
-BNFFind     BNFChar::find(std::string const &name, size_t depth) const
+int			BNFChar::parse(std::string &str, size_t start)
 {
-	BNFFind	res;
-
-	if (depth && this->name == name)
-		res.push_back(BNFInher(*this));
-	return (res);
-}
-
-ssize_t		BNFChar::parse(std::string const &str, size_t start)
-{
-	if (str.length() < start || str[start] != this->c)
+	if (str[start] != this->c)
 	{
-		this->value.clear();
-		this->errorLen = 0;
-		return (BNF_PARSE_ERROR);
+		this->clear();
+		this->state.set(kdo::failbit);
+		return (EXIT_FAILURE);
 	}
-	this->value = str.substr(start, 1);
-	this->errorLen = BNF_ERROR_LEN_NONE;
-	return (1);
-}
-
-BNFAlts		BNFChar::operator|(BNFParser const &other) const
-{
-	return (BNFAlts(2, this, &other));
-}
-
-BNFAlts      BNFChar::operator|(std::string const &str) const
-{
-    BNFStr   tmp(str);
-
-    return (BNFAlts(2, this, &tmp));
-}
-
-BNFAlts      BNFChar::operator|(char c) const
-{
-    BNFChar   tmp(c);
-
-    return (BNFAlts(2, this, &tmp));
-}
-
-BNFCat		BNFChar::operator&(BNFParser const &other) const
-{
-	return (BNFCat(2, this, &other));
-}
-
-BNFCat		BNFChar::operator&(std::string const &str) const
-{
-	BNFStr	tmp(str);
-
-	return (BNFCat(2, this, &tmp));
-}
-
-BNFCat      BNFChar::operator&(char c) const
-{
-    BNFChar   tmp(c);
-
-    return (BNFCat(2, this, &tmp));
-}
-
-BNFRep		BNFChar::operator%(size_t n) const
-{
-	return (BNFRep(*this, n, n));
-}
-
-BNFRep		BNFChar::operator!(void) const
-{
-	return (BNFRep(*this, 0, 1));
-}
-
-BNFRep		BNFChar::operator+(size_t max) const
-{
-	return (BNFRep(*this, 0, max));
-}
-
-BNFRep		BNFChar::operator-(size_t min) const
-{
-	return (BNFRep(*this, min, BNF_INFINI));
-}
-
-BNFFind		BNFChar::operator[](std::string const &name) const
-{
-	return (this->find(name));
+	this->set(str, start, 1);
+	this->state.set(kdo::goodbit);
+	return (EXIT_SUCCESS);
 }
 
 BNFChar		&BNFChar::operator=(BNFChar const &other)

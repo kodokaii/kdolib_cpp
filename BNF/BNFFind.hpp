@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 18:36:12 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 01:35:18 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ class BNFFind: public std::vector<BNFInher>
 					~BNFFind(void);
 		void		merge(BNFFind const &other);
 		void		pushParent(BNFParser const &parent);
-		BNFFind		isHeir(t_uint count, ...) const;
-		BNFFind		isFail(void) const;
-		BNFFind		isSuccess(void) const;
-		BNFFind     isInherFail(void) const;
-		BNFFind     isInherSuccess(void) const;
+		BNFFind		heir(t_uint count, ...) const;
+		BNFFind		fail(void) const;
+		BNFFind		good(void) const;
+		BNFFind     inherFail(void) const;
+		BNFFind     inherGood(void) const;
 		BNFFind		&operator=(BNFFind const &other);
 };

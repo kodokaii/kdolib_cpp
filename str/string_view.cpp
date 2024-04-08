@@ -6,15 +6,23 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/07 20:43:48 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 01:38:59 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../kdolib.hpp"
 #include "string_view.hpp"
 
 namespace kdo
 {
-	string_view::string_view(std::string &str, size_t pos, size_t len):	str(str),
+
+	string_view::string_view(void): str(NULL),
+									pos(0),
+									len(0)
+	{
+	}
+
+	string_view::string_view(std::string &str, size_t pos, size_t len):	str(&str),
 																		pos(pos),
 																		len(len)
 																				
@@ -33,86 +41,86 @@ namespace kdo
 
 	string_view::iterator				string_view::begin()
 	{
-		return (this->str.begin() + this->start());
+		return (this->str->begin() + this->start());
 	}
 
 	string_view::const_iterator			string_view::begin() const
 	{
-		return (this->str.begin() + this->start());
+		return (this->str->begin() + this->start());
 	}
 
 	string_view::iterator				string_view::end()
 	{
-		return (this->str.begin() + this->start() + this->size());
+		return (this->str->begin() + this->start() + this->size());
 	}
 
 	string_view::const_iterator			string_view::end() const
 	{
-		return (this->str.begin() + this->start() + this->size());
+		return (this->str->begin() + this->start() + this->size());
 	}
 
 	string_view::reverse_iterator		string_view::rbegin()
 	{
-		return (this->str.rbegin() + (this->str.size() - this->start()));
+		return (this->str->rbegin() + (this->str->size() - this->start()));
 	}
 
 	string_view::const_reverse_iterator	string_view::rbegin() const
 	{
-		return (this->str.rbegin() + (this->str.size() - this->start()));
+		return (this->str->rbegin() + (this->str->size() - this->start()));
 	}
 
 	string_view::reverse_iterator		string_view::rend()
 	{
-		return (this->str.rbegin() + (this->str.size() - this->start() - this->size()));
+		return (this->str->rbegin() + (this->str->size() - this->start() - this->size()));
 	}
 
 	string_view::const_reverse_iterator	string_view::rend() const
 	{
-		return (this->str.rbegin() + (this->str.size() - this->start() - this->size()));
+		return (this->str->rbegin() + (this->str->size() - this->start() - this->size()));
 	}
 
 	string_view::const_iterator			string_view::cbegin()
 	{
-		return (this->str.begin() + this->start());
+		return (this->str->begin() + this->start());
 	}
 
 	string_view::const_iterator			string_view::cend()
 	{
-		return (this->str.begin() + this->start() + this->size());
+		return (this->str->begin() + this->start() + this->size());
 	}
 
 	string_view::const_reverse_iterator	string_view::crbegin()
 	{
-		return (this->str.rbegin() + (this->str.size() - this->start()));
+		return (this->str->rbegin() + (this->str->size() - this->start()));
 	}
 
 	string_view::const_reverse_iterator	string_view::crend()
 	{
-		return (this->str.rbegin() + (this->str.size() - this->start() - this->size()));
+		return (this->str->rbegin() + (this->str->size() - this->start() - this->size()));
 	}
 
 	size_t								string_view::size(void) const
 	{
-		if (this->str.size() <= this->pos)
+		if (this->str->size() <= this->pos)
 			return (0);
-		if (this->str.size() <= this->pos + this->len)
-			return (this->str.size() - this->pos);
+		if (this->str->size() <= this->pos + this->len)
+			return (this->str->size() - this->pos);
 		return (this->len);
 	}
 
 	size_t								string_view::length(void) const
 	{
-		if (this->str.length() <= this->pos)
+		if (this->str->length() <= this->pos)
 			return (0);
-		if (this->str.length() <= this->pos + this->len)
-			return (this->str.length() - this->pos);
+		if (this->str->length() <= this->pos + this->len)
+			return (this->str->length() - this->pos);
 		return (this->len);
 	}
 
 	size_t								string_view::start(void) const
 	{
-		if (this->str.size() < this->pos)
-			return (this->str.size());
+		if (this->str->size() < this->pos)
+			return (this->str->size());
 		return (this->pos);
 	}
 
@@ -143,51 +151,85 @@ namespace kdo
 
 	char								&string_view::at(size_t pos)
 	{
-		return (this->str.at(this->pos + pos));
+		return (this->str->at(this->pos + pos));
 	}
 
 	char const							&string_view::at(size_t pos) const
 	{
-		return (this->str.at(this->pos + pos));
+		return (this->str->at(this->pos + pos));
 	}
 
 	char								&string_view::back(void)
 	{
 		if (!this->len)
-			return (*this->str.end());
-		return (this->str[this->start() + this->len - 1]);
+			return (*this->str->end());
+		return ((*this->str)[this->start() + this->len - 1]);
 	}
 
 	char const							&string_view::back(void) const
 	{
 		if (!this->len)
-			return (*this->str.end());
-		return (this->str[this->start() + this->len - 1]);
+			return (*this->str->end());
+		return ((*this->str)[this->start() + this->len - 1]);
 	}
 
 	char								&string_view::front(void)
 	{
-		return (this->str[this->start()]);
+		return ((*this->str)[this->start()]);
 	}
 
 	char const							&string_view::front(void) const
 	{
-		return (this->str[this->start()]);
+		return ((*this->str)[this->start()]);
+	}
+
+	void								string_view::setStr(std::string &str)
+	{
+		this->str = &str;
+	}
+
+	void								string_view::setPos(size_t pos)
+	{
+		this->pos = pos;
+	}
+
+	void								string_view::setLen(size_t len)
+	{
+		this->len = len;
+	}
+
+	void								string_view::set(std::string &str, size_t pos, size_t len)
+	{
+		this->str = &str;
+		this->pos = pos;
+		this->len = len;
+	}
+
+	void								string_view::copy(string_view const &other)
+	{
+		this->str = other.str;
+		this->pos = other.pos;
+		this->len = other.len;
 	}
 
 	std::string							string_view::string(void) const
 	{
-		return (this->str.substr(this->start(), this->size()));
+		return (this->str->substr(this->start(), this->size()));
+	}
+
+	std::ostream						&string_view::put(std::ostream &stream) const
+	{
+		return (stream << std::setw(this->size()) << (this->str->c_str() + this->start()));
 	}
 
 	char								&string_view::operator[](size_t pos)
 	{
-		return (this->str[this->start() + pos]);
+		return ((*this->str)[this->start() + pos]);
 	}
 
 	char const							&string_view::operator[](size_t pos) const
 	{
-		return (this->str[this->start() + pos]);
+		return ((*this->str)[this->start() + pos]);
 	}
 
 	string_view 						&string_view::operator+=(size_t n)
@@ -204,12 +246,12 @@ namespace kdo
 
 	string_view 						string_view::operator+(size_t n) const
 	{
-		return (string_view(this->str, this->pos, this->len + n));
+		return (string_view(*this->str, this->pos, this->len + n));
 	}
 
 	string_view 						string_view::operator-(size_t n) const
 	{
-		return (string_view(this->str, this->pos, this->len - n));
+		return (string_view(*this->str, this->pos, this->len - n));
 	}
 
 	string_view 						&string_view::operator++(void)
@@ -246,5 +288,10 @@ namespace kdo
 		this->pos = other.pos;
 		this->len = other.len;
 		return (*this);
+	}
+
+	std::ostream					&operator<<(std::ostream &stream, string_view const &string_view)
+	{
+		return (string_view.put(stream));
 	}
 }

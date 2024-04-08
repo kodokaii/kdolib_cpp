@@ -6,7 +6,7 @@
 /*   By: nlaerema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:45:57 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/07 20:47:00 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:09:21 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ namespace kdo
 {
 	std::string strupper(std::string str)
 	{
-		std::string::iterator   i; 
+		std::string::iterator   it;
 
-		for (i = str.begin(); i != str.end(); ++i)
-			*i = std::toupper(*i);
+		for (it = str.begin(); it != str.end(); ++it)
+			*it = std::toupper(*it);
 		return (str);
 	}
 }

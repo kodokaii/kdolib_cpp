@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 18:17:12 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/08 23:57:58 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ BNFCat::BNFCat(t_uint count, ...):	BNFParser(""),
 BNFCat::BNFCat(BNFCat const &other):	BNFParser(other),
 										ruleEnd(0)		
 {
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < other.rules.size(); cr++)
-		this->rules.push_back(other.rules[cr]->clone());
+	for (i = 0; i < other.rules.size(); ++i)
+		this->rules.push_back(other.rules[i]->clone());
 }
 
 BNFCat::~BNFCat(void)
 {
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->rules.size(); cr++)
-		delete this->rules[cr];
+	for (i = 0; i < this->rules.size(); ++i)
+		delete this->rules[i];
 }
 
 std::string BNFCat::getFormatName(void) const
@@ -68,66 +68,43 @@ BNFParser	*BNFCat::clone(void) const
 	return (new BNFCat(*this));
 }
 
-ssize_t		BNFCat::parse(std::string const &str, size_t start)
+int			BNFCat::parse(std::string &str, size_t start)
 {
-	ssize_t	finalLen(0);
-	ssize_t	len;
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->rules.size(); cr++)
+	this->set(str, start, 0);
+	for (i = 0; i < this->rules.size(); ++i)
 	{
-		len = this->rules[cr]->parse(str, start + finalLen);
-		if (len == BNF_PARSE_ERROR)
+		if (this->rules[i]->parse(str, start + this->size()))
 			break;
-		finalLen += len;	
+		*this += this->rules[i]->size();
 	}
-	if (cr < this->rules.size())
+	if (i < this->rules.size())
 	{
-		finalLen += this->rules[cr]->getErrorLen();
-		this->value = str.substr(start, finalLen);
-		this->errorLen = finalLen;
-		this->ruleEnd = cr + 1;
-		return (BNF_PARSE_ERROR);
+		*this += this->rules[i]->size();
+		this->state.set(kdo::failbit);
+		this->ruleEnd = i + 1;
+		return (EXIT_FAILURE);
 	}
-	this->value = str.substr(start, finalLen);
-	this->errorLen = BNF_ERROR_LEN_NONE;
-	this->ruleEnd = cr;
-	return (finalLen);
+	this->state.set(kdo::goodbit);
+	this->ruleEnd = i;
+	return (EXIT_SUCCESS);
 }
 
 BNFFind     BNFCat::find(std::string const &name, size_t depth) const
 {
     BNFFind res;
-    t_uint  cr;
+    t_uint  i;
 
 	if (depth)
     {
-	  for (cr = 0; cr < this->ruleEnd; cr++)
-		  res.merge((*this->rules[cr]).find(name, depth - 1));
+	  for (i = 0; i < this->ruleEnd; ++i)
+		  res.merge((*this->rules[i]).find(name, depth - 1));
 	  res.pushParent(*this);
 	  if (this->name == name)
 		  res.push_back(BNFInher(*this));
     }
     return (res);
-}
-
-BNFAlts     BNFCat::operator|(BNFParser const &other) const
-{
-	return (BNFAlts(2, this, &other));
-}
-
-BNFAlts      BNFCat::operator|(std::string const &str) const
-{
-    BNFStr   tmp(str);
-
-    return (BNFAlts(2, this, &tmp));
-}
-
-BNFAlts      BNFCat::operator|(char c) const
-{
-    BNFChar   tmp(c);
-
-    return (BNFAlts(2, this, &tmp));
 }
 
 BNFCat      BNFCat::operator&(BNFParser const &other) const
@@ -159,41 +136,16 @@ BNFCat      BNFCat::operator&(char c) const
 	return (res);
 }
 
-BNFRep      BNFCat::operator%(size_t n) const
-{
-    return (BNFRep(*this, n, n));
-}
-
-BNFRep      BNFCat::operator!(void) const
-{
-    return (BNFRep(*this, 0, 1));
-}
-
-BNFRep      BNFCat::operator+(size_t max) const
-{
-	return (BNFRep(*this, 0, max));
-}
-
-BNFRep		BNFCat::operator-(size_t min) const
-{
-	return (BNFRep(*this, min, BNF_INFINI));
-}
-
-BNFFind		BNFCat::operator[](std::string const &name) const
-{
-	return (this->find(name));
-}
-
 BNFCat		&BNFCat::operator=(BNFCat const &other)
 {
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->rules.size(); cr++)
-		delete this->rules[cr];
+	for (i = 0; i < this->rules.size(); ++i)
+		delete this->rules[i];
 	this->rules.clear();
 	*static_cast<BNFParser *>(this) = other;
-	for (cr = 0; cr < other.rules.size(); cr++)
-		this->rules.push_back(other.rules[cr]->clone());
+	for (i = 0; i < other.rules.size(); ++i)
+		this->rules.push_back(other.rules[i]->clone());
 	this->ruleEnd = other.ruleEnd;
 	return (*this);
 }

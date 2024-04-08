@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 12:02:17 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/08 23:49:43 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ BNFRep::BNFRep(BNFRep const &other):	BNFParser(other),
 										min(other.min),
 										max(other.max)
 {
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < other.rules.size(); cr++)
-		this->rules.push_back(other.rules[cr]->clone());
+	for (i = 0; i < other.rules.size(); ++i)
+		this->rules.push_back(other.rules[i]->clone());
 }
 
 BNFRep::~BNFRep(void)
 {
-	t_uint	cr;
+	t_uint	i;
 
 	delete this->rule;
-	for (cr = 0; cr < this->rules.size(); cr++)
-		delete this->rules[cr];
+	for (i = 0; i < this->rules.size(); ++i)
+		delete this->rules[i];
 }
 
 std::string BNFRep::getFormatName(BNFParser const &rule, size_t min, size_t max)
@@ -76,107 +76,45 @@ BNFParser	*BNFRep::clone(void) const
 	return (new BNFRep(*this));
 }
 
-ssize_t		BNFRep::parse(std::string const &str, size_t start)
+int			BNFRep::parse(std::string &str, size_t start)
 {
-	size_t	finalLen(0);
-	ssize_t	len;
-	size_t	cr;
+	size_t	i;
 
-	for (cr = 0; cr < this->max; cr++)
+	this->set(str, start, 0);
+	for (i = 0; i < this->max; ++i)
 	{
-		if (this->rules.size() <= cr)
+		if (this->rules.size() <= i)
 			this->rules.push_back(this->rule->clone());
-		len = this->rules[cr]->parse(str, start + finalLen);
-		if (len == BNF_PARSE_ERROR)
+		if (this->rules[i]->parse(str, start + this->size()))
 			break;
-		finalLen += len;	
+		*this += this->rules[i]->size();
 	}
-	if (cr < this->min)
+	if (i < this->min)
 	{
-		finalLen += this->rules[cr]->getErrorLen();
-		this->value = str.substr(start, finalLen);
-		this->errorLen = finalLen;
-		this->ruleEnd = cr + 1;
-		return (BNF_PARSE_ERROR);
+		*this += this->rules[i]->size();
+		this->state.set(kdo::failbit);
+		this->ruleEnd = i + 1;
+		return (EXIT_FAILURE);
 	}
-	this->value = str.substr(start, finalLen);
-	this->errorLen = BNF_ERROR_LEN_NONE;
-	this->ruleEnd = cr;
-	return (finalLen);
+	this->state.set(kdo::goodbit);
+	this->ruleEnd = i;
+	return (EXIT_SUCCESS);
 }
 
 BNFFind     BNFRep::find(std::string const &name, size_t depth) const
 {
 	BNFFind	res;
-	t_uint	cr;
+	t_uint	i;
 
 	if (depth)
 	{
-		for (cr = 0; cr < this->ruleEnd; cr++)
-			res.merge((*this->rules[cr]).find(name, depth - 1));
+		for (i = 0; i < this->ruleEnd; ++i)
+			res.merge((*this->rules[i]).find(name, depth - 1));
 		res.pushParent(*this);
 		if (this->name == name)
 			res.push_back(BNFInher(*this));
 	}
 	return (res);
-}
-
-BNFAlts		BNFRep::operator|(BNFParser const &other) const
-{
-	return (BNFAlts(2, this, &other));
-}
-
-BNFAlts      BNFRep::operator|(std::string const &str) const
-{
-    BNFStr   tmp(str);
-
-    return (BNFAlts(2, this, &tmp));
-}
-
-BNFAlts      BNFRep::operator|(char c) const
-{
-    BNFChar   tmp(c);
-
-    return (BNFAlts(2, this, &tmp));
-}
-
-BNFCat		BNFRep::operator&(BNFParser const &other) const
-{
-	return (BNFCat(2, this, &other));
-}
-
-BNFCat      BNFRep::operator&(std::string const &str) const
-{
-    BNFStr   tmp(str);
-
-    return (BNFCat(2, this, &tmp));
-}
-
-BNFCat      BNFRep::operator&(char c) const
-{
-    BNFChar   tmp(c);
-
-    return (BNFCat(2, this, &tmp));
-}
-
-BNFRep      BNFRep::operator%(size_t n) const
-{
-	return (BNFRep(*this->rule, n, n));
-}
-
-BNFRep      BNFRep::operator!(void) const
-{
-	return (BNFRep(*this->rule, 0, 1));
-}
-
-BNFRep		BNFRep::operator+(size_t max) const
-{
-	return (BNFRep(*this->rule, this->min, max));
-}
-
-BNFRep		BNFRep::operator-(size_t min) const
-{
-	return (BNFRep(*this->rule, min, this->max));
 }
 
 BNFFind		BNFRep::operator[](std::string const &name) const
@@ -186,16 +124,16 @@ BNFFind		BNFRep::operator[](std::string const &name) const
 
 BNFRep	&BNFRep::operator=(BNFRep const &other)
 {
-	t_uint	cr;
+	t_uint	i;
 
 	delete this->rule;
-	for (cr = 0; cr < this->rules.size(); cr++)
-		delete this->rules[cr];
+	for (i = 0; i < this->rules.size(); ++i)
+		delete this->rules[i];
 	this->rules.clear();
 	*static_cast<BNFParser *>(this) = other;
 	this->rule = other.rule->clone();	
-	for (cr = 0; cr < other.rules.size(); cr++)
-		this->rules.push_back(other.rules[cr]->clone());
+	for (i = 0; i < other.rules.size(); ++i)
+		this->rules.push_back(other.rules[i]->clone());
 	this->ruleEnd = other.ruleEnd;
 	this->min = other.min;
 	this->max = other.max;

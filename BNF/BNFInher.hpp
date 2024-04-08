@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 20:50:31 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 01:32:02 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 
 class BNFParser;
 
-class BNFInher
+class BNFInher: public kdo::string_view
 {
 	protected:
-		std::vector<std::string>	inher;
-		ssize_t						inherErrorLen;
-		std::string					name;
-		std::string					value;
-		ssize_t						errorLen;
+		std::vector<std::string const *>	inher;
+		kdo::State							inherState;
+		std::string const					&name;
+		kdo::State							state;
 
 	public:
 							BNFInher(BNFParser const &son);
@@ -33,8 +32,7 @@ class BNFInher
 		bool				isHeir(t_uint count, ...) const;
 		bool				isHeir(t_uint count, va_list argList) const;
 		std::string const	&getName(void) const;
-		std::string const	&getValue(void) const;
-		ssize_t				getErrorLen(void) const;
-		ssize_t				getInherErrorLen(void) const;
+		kdo::State const	&getState(void) const;
+		kdo::State const	&getInherState(void) const;
 		BNFInher			&operator=(BNFInher const &other);
 };

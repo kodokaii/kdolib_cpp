@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/07 19:34:48 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 00:30:01 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ namespace kdo
 	class string_view
 	{
 		protected:
-			std::string &str;
+			std::string *str;
 			size_t		pos;
 			size_t		len;
 
@@ -29,6 +29,7 @@ namespace kdo
 			typedef std::string::reverse_iterator		reverse_iterator;
 			typedef std::string::const_reverse_iterator	const_reverse_iterator;
 
+									string_view(void);
 									string_view(std::string &str, size_t pos = 0, size_t len = std::string::npos);
 									string_view(string_view const &other);
 									~string_view(void);
@@ -58,7 +59,13 @@ namespace kdo
 			char const				&back(void) const;
 			char					&front(void);
 			char const				&front(void) const;
+			void					setStr(std::string &str);
+			void					setPos(size_t pos);
+			void					setLen(size_t len);
+			void					set(std::string &str, size_t pos = 0, size_t len = std::string::npos);
+			void					copy(string_view const &other);
 			std::string				string(void) const;
+			std::ostream			&put(std::ostream &stream = std::cout) const;
 			char					&operator[](size_t pos);
 			char const				&operator[](size_t pos) const;
 			string_view 			&operator+=(size_t n);
@@ -71,4 +78,6 @@ namespace kdo
 			string_view 			operator--(int);
 			string_view				&operator=(string_view const &other);
 	};
+
+	std::ostream					&operator<<(std::ostream &stream, string_view const &string_view);
 }

@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/18 00:05:44 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:07:18 by nlaerema         ###   ########.fr       */
 /*                                                                            */ /* ************************************************************************** */
 
 #include "SocketTcpServer.hpp"
@@ -27,10 +27,10 @@ SocketTcpServer::SocketTcpServer(std::string const &port, int backlog):	connecte
 
 SocketTcpServer::~SocketTcpServer(void)
 {
-	std::map<int, SocketTcpClient *>::iterator	cr;
+	std::map<int, SocketTcpClient *>::iterator	it;
 
-	for (cr = this->clients.begin(); cr != this->clients.end(); cr++)
-		delete cr->second;
+	for (it = this->clients.begin(); it != this->clients.end(); ++it)
+		delete it->second;
 	this->disconnect();
 }
 
@@ -96,11 +96,11 @@ int				SocketTcpServer::accept(SocketTcpClient const *&client)
 int				SocketTcpServer::broadcast(std::string const &str, int flags)
 {	
 	int											error(0);
-	std::map<int, SocketTcpClient *>::iterator	cr;
+	std::map<int, SocketTcpClient *>::iterator	it;
 
-	for (cr = this->clients.begin(); cr != this->clients.end(); cr++)
+	for (it = this->clients.begin(); it != this->clients.end(); ++it)
 	{
-		if (cr->second->send(str, flags) < 0)
+		if (it->second->send(str, flags) < 0)
 			error++;
 	}
 	return (error);
@@ -109,11 +109,11 @@ int				SocketTcpServer::broadcast(std::string const &str, int flags)
 int				SocketTcpServer::broadcast(void const *buf, size_t len, int flags)
 {
 	int											error(0);
-	std::map<int, SocketTcpClient *>::iterator	cr;
+	std::map<int, SocketTcpClient *>::iterator	it;
 
-	for (cr = this->clients.begin(); cr != this->clients.end(); cr++)
+	for (it = this->clients.begin(); it != this->clients.end(); ++it)
 	{
-		if (cr->second->send(buf, len, flags) < 0)
+		if (it->second->send(buf, len, flags) < 0)
 			error++;
 	}
 	return (error);
@@ -121,35 +121,35 @@ int				SocketTcpServer::broadcast(void const *buf, size_t len, int flags)
 
 void			SocketTcpServer::disconnect(void)
 {
-	std::map<int, SocketTcpClient *>::iterator	cr;
+	std::map<int, SocketTcpClient *>::iterator	it;
 
 	this->close();
 	this->connected = false;
-	for (cr = this->clients.begin(); cr != this->clients.end(); cr++)
-		delete cr->second;
+	for (it = this->clients.begin(); it != this->clients.end(); ++it)
+		delete it->second;
 	this->clients.clear();
 }
 
 void			SocketTcpServer::disconnectClient(int clientSocket)
 {
-	std::map<int, SocketTcpClient *>::iterator  cr;
+	std::map<int, SocketTcpClient *>::iterator  it;
 
-	cr = this->clients.find(clientSocket);
-	if (cr != this->clients.end())
+	it = this->clients.find(clientSocket);
+	if (it != this->clients.end())
 	{
-		delete cr->second;
-		this->clients.erase(cr);
+		delete it->second;
+		this->clients.erase(it);
 	}
 }
 
 int				SocketTcpServer::getClient(SocketTcpClient const *&client, int clientSocket)
 {
-	std::map<int, SocketTcpClient *>::iterator  cr;
+	std::map<int, SocketTcpClient *>::iterator  it;
 
-	cr = this->clients.find(clientSocket);
-	if (cr == this->clients.end())
+	it = this->clients.find(clientSocket);
+	if (it == this->clients.end())
 		return (EXIT_FAILURE);
-	client = cr->second;
+	client = it->second;
 	return (EXIT_SUCCESS);
 }
 

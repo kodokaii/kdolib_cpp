@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 18:36:27 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 01:36:30 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,78 +26,78 @@ BNFFind::~BNFFind(void)
 
 void		BNFFind::merge(BNFFind const &other)
 {
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < other.size(); cr++)
-		this->push_back(other[cr]);
+	for (i = 0; i < other.size(); ++i)
+		this->push_back(other[i]);
 }
 
-BNFFind		BNFFind::isHeir(t_uint count, ...) const
+BNFFind		BNFFind::heir(t_uint count, ...) const
 {
 	va_list	argListCopy;
 	va_list	argList;
 	BNFFind	res;
-	t_uint	cr;
+	t_uint	i;
 
 	va_start(argList, count);
-	for (cr = 0; cr < this->size(); cr++)
+	for (i = 0; i < this->size(); ++i)
 	{
 		__builtin_va_copy(argListCopy, argList);
-		if ((*this)[cr].isHeir(count, argListCopy))
-			res.push_back((*this)[cr]);
+		if ((*this)[i].isHeir(count, argListCopy))
+			res.push_back((*this)[i]);
 	}
 	va_end(argList);
 	return (res);
 }
 
-BNFFind		BNFFind::isFail(void) const
+BNFFind		BNFFind::fail(void) const
 {
 	BNFFind	res;
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->size(); cr++)
+	for (i = 0; i < this->size(); ++i)
 	{
-		if ((*this)[cr].getErrorLen() != BNF_ERROR_LEN_NONE)
-			res.push_back((*this)[cr]);
+		if ((*this)[i].getState().fail())
+			res.push_back((*this)[i]);
 	}
 	return (res);
 }
 
-BNFFind		BNFFind::isSuccess(void) const
+BNFFind		BNFFind::good(void) const
 {
 	BNFFind	res;
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->size(); cr++)
+	for (i = 0; i < this->size(); ++i)
 	{
-		if ((*this)[cr].getErrorLen() == BNF_ERROR_LEN_NONE)
-			res.push_back((*this)[cr]);
+		if ((*this)[i].getState().good())
+			res.push_back((*this)[i]);
 	}
 	return (res);
 }
 
-BNFFind		BNFFind::isInherFail(void) const
+BNFFind		BNFFind::inherFail(void) const
 {
 	BNFFind	res;
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->size(); cr++)
+	for (i = 0; i < this->size(); ++i)
 	{
-		if ((*this)[cr].getInherErrorLen() != BNF_ERROR_LEN_NONE)
-			res.push_back((*this)[cr]);
+		if ((*this)[i].getState().fail())
+			res.push_back((*this)[i]);
 	}
 	return (res);
 }
 
-BNFFind		BNFFind::isInherSuccess(void) const
+BNFFind		BNFFind::inherGood(void) const
 {
 	BNFFind	res;
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->size(); cr++)
+	for (i = 0; i < this->size(); ++i)
 	{
-		if ((*this)[cr].getInherErrorLen() == BNF_ERROR_LEN_NONE)
-			res.push_back((*this)[cr]);
+		if ((*this)[i].getState().good())
+			res.push_back((*this)[i]);
 	}
 	return (res);
 }
@@ -105,10 +105,10 @@ BNFFind		BNFFind::isInherSuccess(void) const
 
 void		BNFFind::pushParent(BNFParser const &parent)
 {
-	t_uint	cr;
+	t_uint	i;
 
-	for (cr = 0; cr < this->size(); cr++)
-		(*this)[cr].pushParent(parent);
+	for (i = 0; i < this->size(); ++i)
+		(*this)[i].pushParent(parent);
 }
 
 BNFFind		&BNFFind::operator=(BNFFind const &other)
