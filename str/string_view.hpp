@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 00:30:01 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:38:40 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ namespace kdo
 			const_iterator			cend();
 			const_reverse_iterator	crbegin();	
 			const_reverse_iterator	crend();	
+			std::string				&data(void) const;
 			size_t					size(void) const;
 			size_t					length(void) const;
 			size_t					start(void) const;
@@ -66,6 +67,10 @@ namespace kdo
 			void					copy(string_view const &other);
 			std::string				string(void) const;
 			std::ostream			&put(std::ostream &stream = std::cout) const;
+			int						compare(std::string const &str) const;
+			int						compare(size_t pos, size_t len, std::string const &str) const;
+			int						compare(kdo::string_view const &str) const;
+			int						compare(size_t pos, size_t len, kdo::string_view const &str) const;
 			char					&operator[](size_t pos);
 			char const				&operator[](size_t pos) const;
 			string_view 			&operator+=(size_t n);

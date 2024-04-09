@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/08 23:41:05 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:56:04 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ BNFCat				BNFParser::operator&(char c) const
 	return (BNFCat(2, this, &tmp));
 }
 
-BNFRep				BNFParser::operator%(size_t n) const
+BNFRep				BNFParser::operator^(size_t n) const
 {
 	return (BNFRep(*this, n, n));
 }

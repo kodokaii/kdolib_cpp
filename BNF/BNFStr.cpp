@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/08 23:43:39 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:53:52 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ BNFParser	*BNFStr::clone(void) const
 	return (new BNFStr(*this));
 }
 
-int			BNFStr::parse(std::string &str, size_t start)
+int         BNFStr::parse(std::string &str, size_t start)
+{
+  this->parse(kdo::string_view(str, start));
+}
+
+int			BNFStr::parse(kdo::string_view const &str, size_t start)
 {
 	if (str.compare(start, this->ref.length(), this->ref))
 	{
@@ -44,7 +49,7 @@ int			BNFStr::parse(std::string &str, size_t start)
 		this->state.set(kdo::failbit);
 		return (EXIT_FAILURE);
 	}
-	this->set(str, start, this->ref.length());
+	this->set(str.data(), str.start() + start, this->ref.length());
 	this->state.set(kdo::goodbit);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 01:38:59 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:39:28 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,11 @@ namespace kdo
 	string_view::const_reverse_iterator	string_view::crend()
 	{
 		return (this->str->rbegin() + (this->str->size() - this->start() - this->size()));
+	}
+
+	std::string							&string_view::data(void) const
+	{
+		return (*this->str);
 	}
 
 	size_t								string_view::size(void) const
@@ -221,6 +226,27 @@ namespace kdo
 	{
 		return (stream << std::setw(this->size()) << (this->str->c_str() + this->start()));
 	}
+
+	int									string_view::compare(std::string const &str) const
+	{
+		this->str->compare(this->start(), std::string::npos, str);
+	}
+
+	int									string_view::compare(size_t pos, size_t len, std::string const &str) const
+	{
+		this->str->compare(this->start() + pos, len, str);
+	}
+
+	int									string_view::compare(kdo::string_view const &str) const
+	{
+		this->str->compare(this->start(), std::string::npos, str.data(), str.size());
+	}
+
+	int									string_view::compare(size_t pos, size_t len, kdo::string_view const &str) const
+	{
+		this->str->compare(this->start() + pos, len, str.data(), str.size());
+	}
+
 
 	char								&string_view::operator[](size_t pos)
 	{
