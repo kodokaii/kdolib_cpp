@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 19:50:43 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:49:48 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ BNFParser	*BNFChar::clone(void) const
 
 int			BNFChar::parse(std::string &str, size_t start)
 {
-	this->parse(kdo::string_view(str, start));
+	return (this->parse(kdo::string_view(str, start)));
 }
 
 int			BNFChar::parse(kdo::string_view const &str, size_t start)

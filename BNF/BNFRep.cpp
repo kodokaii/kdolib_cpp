@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/08 23:49:43 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:50:36 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,14 @@ BNFParser	*BNFRep::clone(void) const
 
 int			BNFRep::parse(std::string &str, size_t start)
 {
+	return (this->parse(kdo::string_view(str, start)));
+}
+
+int			BNFRep::parse(kdo::string_view const &str, size_t start)
+{
 	size_t	i;
 
-	this->set(str, start, 0);
+	this->set(str.data(), str.start() + start, 0);
 	for (i = 0; i < this->max; ++i)
 	{
 		if (this->rules.size() <= i)

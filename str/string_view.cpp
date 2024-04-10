@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 20:39:28 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:53:02 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,24 +229,33 @@ namespace kdo
 
 	int									string_view::compare(std::string const &str) const
 	{
-		this->str->compare(this->start(), std::string::npos, str);
+		return (this->str->compare(this->start(), this->size(), str));
 	}
 
 	int									string_view::compare(size_t pos, size_t len, std::string const &str) const
 	{
-		this->str->compare(this->start() + pos, len, str);
+		return (this->str->compare(this->start() + pos, std::min(len, this->size()), str));
+	}
+
+	int									string_view::compare (size_t pos, size_t len, std::string const &str, size_t subpos, size_t sublen) const
+	{
+		return (this->str->compare(this->start() + pos, std::min(len, this->size()), str, subpos, sublen));
 	}
 
 	int									string_view::compare(kdo::string_view const &str) const
 	{
-		this->str->compare(this->start(), std::string::npos, str.data(), str.size());
+		return (this->str->compare(this->start(), this->size(), str.data(), str.start(), str.size()));
 	}
 
 	int									string_view::compare(size_t pos, size_t len, kdo::string_view const &str) const
 	{
-		this->str->compare(this->start() + pos, len, str.data(), str.size());
+		return (this->str->compare(this->start() + pos, std::min(len, this->size()), str.data(), str.start(), str.size()));
 	}
 
+	int									string_view::compare(size_t pos, size_t len, kdo::string_view const &str, size_t subpos, size_t sublen) const
+	{
+		return (this->str->compare(this->start() + pos, std::min(len, this->size()), str.data(), str.start() + subpos, std::min(sublen, str.size())));
+	}
 
 	char								&string_view::operator[](size_t pos)
 	{

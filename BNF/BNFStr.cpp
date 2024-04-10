@@ -4,9 +4,7 @@
 /*   BNFStr.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 19:53:52 by nlaerema         ###   ########.fr       */
+/*                                                +#+#+#+#+#+   +#+           */ /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */ /*   Updated: 2024/04/09 19:53:52 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +36,7 @@ BNFParser	*BNFStr::clone(void) const
 
 int         BNFStr::parse(std::string &str, size_t start)
 {
-  this->parse(kdo::string_view(str, start));
+	return (this->parse(kdo::string_view(str, start)));
 }
 
 int			BNFStr::parse(kdo::string_view const &str, size_t start)

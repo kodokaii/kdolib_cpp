@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/08 23:52:23 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:40:26 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ class BNFCat: public BNFParser
 		std::string getFormatName(void) const;
 		BNFParser	*clone(void) const;
 		int			parse(std::string &str, size_t start = 0);
+		int			parse(kdo::string_view const &str, size_t start = 0);
 		BNFFind     find(std::string const &name, size_t depth = BNF_INFINI) const;
         BNFCat      operator&(BNFParser const &other) const;
 		BNFCat      operator&(std::string const &str) const;

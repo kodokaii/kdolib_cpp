@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 20:38:40 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:28:43 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ namespace kdo
 			std::ostream			&put(std::ostream &stream = std::cout) const;
 			int						compare(std::string const &str) const;
 			int						compare(size_t pos, size_t len, std::string const &str) const;
+			int						compare (size_t pos, size_t len, std::string const &str, size_t subpos, size_t sublen) const;
 			int						compare(kdo::string_view const &str) const;
 			int						compare(size_t pos, size_t len, kdo::string_view const &str) const;
+			int						compare(size_t pos, size_t len, kdo::string_view const &str, size_t subpos, size_t sublen) const;
 			char					&operator[](size_t pos);
 			char const				&operator[](size_t pos) const;
 			string_view 			&operator+=(size_t n);

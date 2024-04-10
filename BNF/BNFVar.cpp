@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 00:55:39 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:51:49 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ BNFParser	*BNFVar::clone(void) const
 }
 
 int			BNFVar::parse(std::string &str, size_t start)
+{
+	return (this->parse(kdo::string_view(str, start)));
+}
+
+int			BNFVar::parse(kdo::string_view const &str, size_t start)
 {
 	ssize_t	res;
 
