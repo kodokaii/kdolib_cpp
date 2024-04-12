@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 14:47:30 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:15:06 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,25 @@ int			BNFCat::parse(kdo::string_view const &str, size_t start)
 {
 	t_uint	i;
 
+	this->state.clear();
 	this->set(str.data(), str.start() + start, 0);
 	for (i = 0; i < this->rules.size(); ++i)
 	{
-		if (this->rules[i]->parse(str, start + this->size()))
+		if (this->rules[i]->parse(str, start + this->size())
+			|| this->rules[i]->getState().eof())
 			break;
 		*this += this->rules[i]->size();
 	}
+	if (i < this->rules.size() && this->rules[i]->getState().eof())
+		this->state.add(kdo::eofbit);
 	if (i < this->rules.size())
 	{
 		*this += this->rules[i]->size();
-		this->state.set(kdo::failbit);
+		this->state.add(kdo::failbit);
 		this->ruleEnd = i + 1;
 		return (EXIT_FAILURE);
 	}
-	this->state.set(kdo::goodbit);
+	this->state.add(kdo::goodbit);
 	this->ruleEnd = i;
 	return (EXIT_SUCCESS);
 }

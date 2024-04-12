@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 14:53:02 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:35:20 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,14 +217,28 @@ namespace kdo
 		this->len = other.len;
 	}
 
+	char const							*string_view::c_str(void)
+	{
+		return (this->str->c_str() + this->start());
+	}
+
 	std::string							string_view::string(void) const
 	{
 		return (this->str->substr(this->start(), this->size()));
 	}
 
-	std::ostream						&string_view::put(std::ostream &stream) const
+	std::ostream						&string_view::put(std::ostream &stream, size_t pos, size_t len) const
 	{
-		return (stream << std::setw(this->size()) << (this->str->c_str() + this->start()));
+		return (stream << std::setw(std::min(this->size(), len)) << (this->str->c_str() + this->start() + pos));
+	}
+
+	kdo::string_view					string_view::substr(size_t pos, size_t len) const
+	{
+		kdo::string_view	sub(*this);
+
+		sub.pos += std::min(sub.size(), pos);
+		sub.len = std::min(sub.size(), len);
+		return (sub);
 	}
 
 	int									string_view::compare(std::string const &str) const
@@ -255,6 +269,178 @@ namespace kdo
 	int									string_view::compare(size_t pos, size_t len, kdo::string_view const &str, size_t subpos, size_t sublen) const
 	{
 		return (this->str->compare(this->start() + pos, std::min(len, this->size()), str.data(), str.start() + subpos, std::min(sublen, str.size())));
+	}
+
+	size_t								string_view::find(std::string const &str, size_t pos) const
+	{
+		size_t	i;
+		size_t	j;
+
+		i = pos;
+		if (!str.size())
+			return (std::string::npos);
+		while (i < this->size())
+		{
+			j = 0;
+			while ((*this->str)[i + j] == str[j])
+			{
+				if (j == str.size())
+					return (i);
+				j++;
+			}
+			i++;
+		}
+		return (std::string::npos);
+	}
+
+	size_t								string_view::find(char c, size_t pos) const
+	{
+		size_t	i;
+
+		i = pos;
+		while (i < this->size())
+		{
+			if ((*this->str)[i] == c)
+				return (i);
+		}
+		return (std::string::npos);
+
+	}
+
+	size_t								string_view::find (char const *s, size_t pos) const
+	{
+		size_t	i;
+		size_t	j;
+
+		i = pos;
+		if (!s[0])
+			return (std::string::npos);
+		while (i < this->size())
+		{
+			j = 0;
+			while ((*this->str)[i + j] == s[j])
+			{
+				j++;
+				if (!s[0])
+					return (i);
+			}
+			i++;
+		}
+		return (std::string::npos);
+	}
+
+	size_t								string_view::find (char const *s, size_t pos, size_t n) const
+	{
+		size_t	i;
+		size_t	j;
+
+		i = pos;
+		if (!s[0] || !n)
+			return (std::string::npos);
+		while (i < this->size())
+		{
+			j = 0;
+			while ((*this->str)[i + j] == s[j])
+			{
+				j++;
+				if (!s[0] || j == n)
+					return (i);
+			}
+			i++;
+		}
+		return (std::string::npos);
+	}
+
+	size_t								string_view::find(kdo::string_view const &str, size_t pos) const
+	{
+		size_t	i;
+		size_t	j;
+
+		i = pos;
+		if (!str.size())
+			return (std::string::npos);
+		while (i < this->size())
+		{
+			j = 0;
+			while ((*this->str)[i + j] == str[j])
+			{
+				j++;
+				if (j == str.size())
+					return (i);
+			}
+			i++;
+		}
+		return (std::string::npos);
+	}
+
+	bool								string_view::operator<(std::string const &str)
+	{
+		return (this->compare(str) < 0);
+	}
+
+	bool								string_view::operator<=(std::string const &str)
+	{
+		return (this->compare(str) <= 0);
+	}
+
+	bool								string_view::operator>(std::string const &str)
+	{
+		return (0 < this->compare(str));
+	}
+
+	bool								string_view::operator>=(std::string const &str)
+	{
+		return (0 <= this->compare(str));
+	}
+
+	bool								string_view::operator==(std::string const &str)
+	{
+		return (!this->compare(str));
+	}
+
+	bool								string_view::operator!=(std::string const &str)
+	{
+		return (this->compare(str));
+	}
+
+	std::string							string_view::operator+(std::string const &str) const
+	{
+		return (this->string() + str);
+	}
+
+	bool								string_view::operator<(kdo::string_view const &str)
+	{
+		return (this->compare(str) < 0);
+	}
+
+	bool								string_view::operator<=(kdo::string_view const &str)
+	{
+		return (this->compare(str) <= 0);
+	}
+
+	bool								string_view::operator>(kdo::string_view const &str)
+	{
+		return (0 < this->compare(str));
+	}
+
+	bool								string_view::operator>=(kdo::string_view const &str)
+	{
+		return (0 <= this->compare(str));
+	}
+
+	bool								string_view::operator==(kdo::string_view const &str)
+	{
+		return (!this->compare(str));
+	}
+
+	bool								string_view::operator!=(kdo::string_view const &str)
+	{
+		return (this->compare(str));
+	}
+
+	std::string							string_view::operator+(kdo::string_view const &str) const
+	{
+		return (this->string() + str.string());
 	}
 
 	char								&string_view::operator[](size_t pos)
@@ -325,8 +511,43 @@ namespace kdo
 		return (*this);
 	}
 
-	std::ostream					&operator<<(std::ostream &stream, string_view const &string_view)
+	std::ostream					&operator<<(std::ostream &stream, string_view const &strView)
 	{
-		return (string_view.put(stream));
+		return (strView.put(stream));
+	}
+
+	bool							operator<(std::string const &str, string_view const &strView)
+	{
+		return (0 < strView.compare(str));
+	}
+
+	bool							operator<=(std::string const &str, string_view const &strView)
+	{
+		return (0 <= strView.compare(str));
+	}
+
+	bool							operator>(std::string const &str, string_view const &strView)
+	{
+		return (strView.compare(str) < 0);
+	}
+
+	bool							operator>=(std::string const &str, string_view const &strView)
+	{
+		return (strView.compare(str) <= 0);
+	}
+
+	bool							operator==(std::string const &str, string_view const &strView)
+	{
+		return (!strView.compare(str));
+	}
+
+	bool							operator!=(std::string const &str, string_view const &strView)
+	{
+		return (strView.compare(str));
+	}
+
+	std::string						operator+(std::string const &str, kdo::string_view const strView)
+	{
+		return (str + strView.string());
 	}
 }

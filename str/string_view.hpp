@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 14:28:43 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:31:44 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,35 @@ namespace kdo
 			void					setLen(size_t len);
 			void					set(std::string &str, size_t pos = 0, size_t len = std::string::npos);
 			void					copy(string_view const &other);
+			char const				*c_str(void);
 			std::string				string(void) const;
-			std::ostream			&put(std::ostream &stream = std::cout) const;
+			std::ostream			&put(std::ostream &stream = std::cout, size_t pos = 0, size_t len = std::string::npos) const;
+			kdo::string_view		substr (size_t pos = 0, size_t len = std::string::npos) const;
 			int						compare(std::string const &str) const;
 			int						compare(size_t pos, size_t len, std::string const &str) const;
 			int						compare (size_t pos, size_t len, std::string const &str, size_t subpos, size_t sublen) const;
-			int						compare(kdo::string_view const &str) const;
-			int						compare(size_t pos, size_t len, kdo::string_view const &str) const;
-			int						compare(size_t pos, size_t len, kdo::string_view const &str, size_t subpos, size_t sublen) const;
+			int						compare(string_view const &str) const;
+			int						compare(size_t pos, size_t len, string_view const &str) const;
+			int						compare(size_t pos, size_t len, string_view const &str, size_t subpos, size_t sublen) const;
+			size_t					find(std::string const &str, size_t pos = 0) const;
+			size_t					find (char const *s, size_t pos = 0) const;
+			size_t 					find (char const *s, size_t pos, size_t n) const;
+			size_t					find(char c, size_t pos = 0) const;
+			size_t					find(kdo::string_view const &str, size_t pos = 0) const;
+			bool					operator<(std::string const &str);
+			bool					operator<=(std::string const &str);
+			bool					operator>(std::string const &str);
+			bool					operator>=(std::string const &str);
+			bool					operator==(std::string const &str);
+			bool					operator!=(std::string const &str);
+			std::string				operator+(std::string const &str) const;
+			bool					operator<(string_view const &str);
+			bool					operator<=(string_view const &str);
+			bool					operator>(string_view const &str);
+			bool					operator>=(string_view const &str);
+			bool					operator==(string_view const &str);
+			bool					operator!=(string_view const &str);
+			std::string				operator+(string_view const &str) const;
 			char					&operator[](size_t pos);
 			char const				&operator[](size_t pos) const;
 			string_view 			&operator+=(size_t n);
@@ -86,5 +107,12 @@ namespace kdo
 			string_view				&operator=(string_view const &other);
 	};
 
-	std::ostream					&operator<<(std::ostream &stream, string_view const &string_view);
+	std::ostream					&operator<<(std::ostream &stream, string_view const &strView);
+	bool							operator<(std::string const &str, string_view const &strView);
+	bool							operator<=(std::string const &str, string_view const &strView);
+	bool							operator>(std::string const &str, string_view const &strView);
+	bool							operator>=(std::string const &str, string_view const &strView);
+	bool							operator==(std::string const &str, string_view const &strView);
+	bool							operator!=(std::string const &str, string_view const &strView);
+	std::string						operator+(std::string const &str, string_view const strView);
 }

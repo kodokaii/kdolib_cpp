@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 01:21:53 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:04:30 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,24 @@ namespace kdo
 		this->flags = flags;
 	}
 
+	void		State::add(stateFlags flags)
+	{
+		this->flags = stateFlags(this->flags | flags);
+	}
+
+	void		State::del(stateFlags flags)
+	{
+		this->flags = stateFlags(this->flags & ~flags);
+	}
+
 	void		State::clear(void)
 	{
 		this->flags = clearbit;
+	}
+
+	State		State::operator~(void) const
+	{
+		return (stateFlags(~this->flags));
 	}
 
 	bool		State::operator==(stateFlags flags) const
@@ -87,21 +102,27 @@ namespace kdo
 	}
 
 
-	State const	&State::operator&=(stateFlags flags)
+	State		&State::operator&=(stateFlags flags)
 	{
 		this->flags = stateFlags(this->flags & flags);
 		return (*this);
 	}
 
-	State const	&State::operator|=(stateFlags flags)
+	State		&State::operator|=(stateFlags flags)
 	{
 		this->flags = stateFlags(this->flags | flags);
 		return (*this);
 	}
 
-	State const	&State::operator^=(stateFlags flags)
+	State		&State::operator^=(stateFlags flags)
 	{
 		this->flags = stateFlags(this->flags ^ flags);
+		return (*this);
+	}
+
+	State		&State::operator=(stateFlags flags)
+	{
+		this->flags = flags;
 		return (*this);
 	}
 
@@ -130,30 +151,25 @@ namespace kdo
 		return (stateFlags(this->flags ^ other.flags));
 	}
 
-	State const	&State::operator&=(State const &other)
+	State		&State::operator&=(State const &other)
 	{
 		this->flags = stateFlags(this->flags & other.flags);
 		return (*this);
 	}
 
-	State const	&State::operator|=(State const &other)
+	State		&State::operator|=(State const &other)
 	{
 		this->flags = stateFlags(this->flags | other.flags);
 		return (*this);
 	}
 
-	State const	&State::operator^=(State const &other)
+	State		&State::operator^=(State const &other)
 	{
 		this->flags = stateFlags(this->flags ^ other.flags);
 		return (*this);
 	}
 
-	State		State::operator~(void) const
-	{
-		return (stateFlags(~this->flags));
-	}
-
-	State	&State::operator=(State const &other)
+	State		&State::operator=(State const &other)
 	{
 		this->flags = other.flags;
 		return (*this);

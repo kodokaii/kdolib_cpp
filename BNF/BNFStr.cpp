@@ -41,14 +41,18 @@ int         BNFStr::parse(std::string &str, size_t start)
 
 int			BNFStr::parse(kdo::string_view const &str, size_t start)
 {
-	if (str.compare(start, this->ref.length(), this->ref))
+	if (str.size() < start + this->ref.length() || str.compare(start, this->ref.length(), this->ref))
 	{
 		this->clear();
 		this->state.set(kdo::failbit);
+		if (str.size() < start + this->ref.length())
+			this->state.add(kdo::eofbit);
 		return (EXIT_FAILURE);
 	}
 	this->set(str.data(), str.start() + start, this->ref.length());
 	this->state.set(kdo::goodbit);
+	if (str.size() == start + this->ref.length())
+		this->state.add(kdo::eofbit);
 	return (EXIT_SUCCESS);
 }
 

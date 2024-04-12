@@ -21,9 +21,10 @@ SRC 		= BNF/BNFAlts.cpp\
 			  Socket/Socket.cpp\
 			  Socket/SocketTcpClient.cpp\
 			  Socket/SocketTcpServer.cpp\
+			  State/State.cpp\
+			  str/stricmp.cpp\
 			  str/string_view.cpp\
 			  str/strtrim.cpp\
-			  str/stricmp.cpp\
 			  str/strupper.cpp
 
 OBJ 		= $(SRC:.cpp=.o)

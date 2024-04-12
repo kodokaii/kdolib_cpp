@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 14:50:05 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:06:01 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,18 @@ int			BNFRange::parse(std::string &str, size_t start)
 
 int			BNFRange::parse(kdo::string_view const &str, size_t start)
 {
-	if (str[start] < this->cMin || this->cMax < str[start])
+	if (str.size() < start || str[start] < this->cMin || this->cMax < str[start])
 	{
 		this->clear();
 		this->state.set(kdo::failbit);
+		if (str.size() < start)
+			this->state.add(kdo::eofbit);
 		return (EXIT_FAILURE);
 	}
 	this->set(str.data(), str.start() + start, 1);
 	this->state.set(kdo::goodbit);
+	if (str.size() == start)
+		this->state.add(kdo::eofbit);
 	return (EXIT_SUCCESS);
 }
 

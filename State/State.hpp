@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 01:12:05 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:03:37 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ namespace kdo
 			stateFlags	flags;
 
 		public:
-						State(stateFlags flags = failbit);
+						State(stateFlags flags = clearbit);
 						State(State const &other);
 						~State(void);
 			bool		good(void) const;
@@ -38,24 +38,27 @@ namespace kdo
 			bool		bad(void) const;
 			stateFlags	get(void) const;
 			void		set(stateFlags flags);
+			void		add(stateFlags flags);
+			void		del(stateFlags flags);
 			void		clear(void);
+			State		operator~(void) const;
 			bool		operator==(stateFlags flags) const;
 			bool		operator!=(stateFlags flags) const;
 			State		operator&(stateFlags flags) const;
 			State		operator|(stateFlags flags) const;
 			State		operator^(stateFlags flags) const;
-			State const	&operator&=(stateFlags flags);
-			State const	&operator|=(stateFlags flags);
-			State const	&operator^=(stateFlags flags);
+			State		&operator&=(stateFlags flags);
+			State		&operator|=(stateFlags flags);
+			State		&operator^=(stateFlags flags);
+			State		&operator=(stateFlags flags);
 			bool		operator==(State const &other) const;
 			bool		operator!=(State const &other) const;
 			State		operator&(State const &other) const;
 			State		operator|(State const &other) const;
 			State		operator^(State const &other) const;
-			State const	&operator&=(State const &other);
-			State const	&operator|=(State const &other);
-			State const	&operator^=(State const &other);
-			State		operator~(void) const;
+			State	 	&operator&=(State const &other);
+			State		&operator|=(State const &other);
+			State		&operator^=(State const &other);
 			State		&operator=(State const &other);
 	};
 }

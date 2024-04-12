@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 14:50:36 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:07:55 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,27 @@ int			BNFRep::parse(kdo::string_view const &str, size_t start)
 {
 	size_t	i;
 
+	this->state.clear();
 	this->set(str.data(), str.start() + start, 0);
 	for (i = 0; i < this->max; ++i)
 	{
 		if (this->rules.size() <= i)
 			this->rules.push_back(this->rule->clone());
-		if (this->rules[i]->parse(str, start + this->size()))
+		if (this->rules[i]->parse(str, start + this->size())
+			|| this->rules[i]->getState().eof())
 			break;
 		*this += this->rules[i]->size();
 	}
+	if (i < this->max && this->rules[i]->getState().eof())
+		this->state.add(kdo::eofbit);
 	if (i < this->min)
 	{
 		*this += this->rules[i]->size();
-		this->state.set(kdo::failbit);
+		this->state.add(kdo::failbit);
 		this->ruleEnd = i + 1;
 		return (EXIT_FAILURE);
 	}
-	this->state.set(kdo::goodbit);
+	this->state.add(kdo::goodbit);
 	this->ruleEnd = i;
 	return (EXIT_SUCCESS);
 }
