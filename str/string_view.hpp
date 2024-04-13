@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 15:59:15 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 18:47:25 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,19 @@ namespace kdo
 			size_t 					find (char const *s, size_t pos, size_t n) const;
 			size_t					find(char c, size_t pos = 0) const;
 			size_t					find(kdo::string_view const &str, size_t pos = 0) const;
-			bool					operator<(std::string const &str);
-			bool					operator<=(std::string const &str);
-			bool					operator>(std::string const &str);
-			bool					operator>=(std::string const &str);
-			bool					operator==(std::string const &str);
-			bool					operator!=(std::string const &str);
+			bool					operator<(std::string const &str) const;
+			bool					operator<=(std::string const &str) const;
+			bool					operator>(std::string const &str) const;
+			bool					operator>=(std::string const &str) const;
+			bool					operator==(std::string const &str) const;
+			bool					operator!=(std::string const &str) const;
 			std::string				operator+(std::string const &str) const;
-			bool					operator<(string_view const &str);
-			bool					operator<=(string_view const &str);
-			bool					operator>(string_view const &str);
-			bool					operator>=(string_view const &str);
-			bool					operator==(string_view const &str);
-			bool					operator!=(string_view const &str);
+			bool					operator<(string_view const &str) const;
+			bool					operator<=(string_view const &str) const;
+			bool					operator>(string_view const &str) const;
+			bool					operator>=(string_view const &str) const;
+			bool					operator==(string_view const &str) const;
+			bool					operator!=(string_view const &str) const;
 			std::string				operator+(string_view const &str) const;
 			char					&operator[](size_t pos);
 			char const				&operator[](size_t pos) const;
@@ -115,4 +115,5 @@ namespace kdo
 	bool							operator==(std::string const &str, string_view const &strView);
 	bool							operator!=(std::string const &str, string_view const &strView);
 	std::string						operator+(std::string const &str, string_view const strView);
+	std::string						operator+=(std::string &str, string_view const strView);
 }

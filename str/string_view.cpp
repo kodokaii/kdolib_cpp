@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 15:59:01 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 18:47:30 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,32 +373,32 @@ namespace kdo
 		return (std::string::npos);
 	}
 
-	bool								string_view::operator<(std::string const &str)
+	bool								string_view::operator<(std::string const &str) const
 	{
 		return (this->compare(str) < 0);
 	}
 
-	bool								string_view::operator<=(std::string const &str)
+	bool								string_view::operator<=(std::string const &str) const
 	{
 		return (this->compare(str) <= 0);
 	}
 
-	bool								string_view::operator>(std::string const &str)
+	bool								string_view::operator>(std::string const &str) const
 	{
 		return (0 < this->compare(str));
 	}
 
-	bool								string_view::operator>=(std::string const &str)
+	bool								string_view::operator>=(std::string const &str) const
 	{
 		return (0 <= this->compare(str));
 	}
 
-	bool								string_view::operator==(std::string const &str)
+	bool								string_view::operator==(std::string const &str) const
 	{
 		return (!this->compare(str));
 	}
 
-	bool								string_view::operator!=(std::string const &str)
+	bool								string_view::operator!=(std::string const &str) const
 	{
 		return (this->compare(str));
 	}
@@ -408,32 +408,32 @@ namespace kdo
 		return (this->string() + str);
 	}
 
-	bool								string_view::operator<(kdo::string_view const &str)
+	bool								string_view::operator<(kdo::string_view const &str) const
 	{
 		return (this->compare(str) < 0);
 	}
 
-	bool								string_view::operator<=(kdo::string_view const &str)
+	bool								string_view::operator<=(kdo::string_view const &str) const
 	{
 		return (this->compare(str) <= 0);
 	}
 
-	bool								string_view::operator>(kdo::string_view const &str)
+	bool								string_view::operator>(kdo::string_view const &str) const
 	{
 		return (0 < this->compare(str));
 	}
 
-	bool								string_view::operator>=(kdo::string_view const &str)
+	bool								string_view::operator>=(kdo::string_view const &str) const
 	{
 		return (0 <= this->compare(str));
 	}
 
-	bool								string_view::operator==(kdo::string_view const &str)
+	bool								string_view::operator==(kdo::string_view const &str) const
 	{
 		return (!this->compare(str));
 	}
 
-	bool								string_view::operator!=(kdo::string_view const &str)
+	bool								string_view::operator!=(kdo::string_view const &str) const
 	{
 		return (this->compare(str));
 	}
@@ -550,4 +550,10 @@ namespace kdo
 	{
 		return (str + strView.string());
 	}
+
+	std::string						operator+=(std::string &str, kdo::string_view const strView)
+	{
+		return (str += strView.string());
+	}
+
 }

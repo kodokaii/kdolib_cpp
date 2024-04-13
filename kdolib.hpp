@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/08 13:25:56 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 20:25:26 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ namespace kdo
 {
 	std::string					strtrim(const std::string &str, const std::string set);
 	std::string					strupper(std::string str);
-	int							stricmp(std::string const &s1 , std::string const &s2);
 }
 
 #include "str/string_view.hpp"
+#include "str/stricmp.hpp"
 
 #include "io/convert.hpp"
 #include "io/userinput.hpp"
