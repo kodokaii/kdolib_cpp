@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 10:59:48 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:26:56 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ class BNFParser: public kdo::string_view
 		virtual BNFRep		operator^(size_t n) const;
 		virtual BNFRep		operator!(void) const;
 		virtual BNFRep		operator~(void) const;
+		virtual BNFRep		operator*(void) const;
 		virtual BNFFind		operator[](std::string const &name) const;
 		BNFParser			&operator=(BNFParser const &other);
 };
