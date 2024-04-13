@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 16:15:06 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:09:13 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,15 @@ BNFParser	*BNFCat::clone(void) const
 	return (new BNFCat(*this));
 }
 
-int			BNFCat::parse(std::string &str, size_t start)
-{
-	return (this->parse(kdo::string_view(str, start)));
-}
-
-int			BNFCat::parse(kdo::string_view const &str, size_t start)
+int			BNFCat::parse(kdo::string_view const &str, size_t start, size_t len)
 {
 	t_uint	i;
 
 	this->state.clear();
 	this->set(str.data(), str.start() + start, 0);
-	for (i = 0; i < this->rules.size(); ++i)
+	for (i = 0; len < this->size() && i < this->rules.size(); ++i)
 	{
-		if (this->rules[i]->parse(str, start + this->size())
+		if (this->rules[i]->parse(str, start + this->size(), len - this->size())
 			|| this->rules[i]->getState().eof())
 			break;
 		*this += this->rules[i]->size();

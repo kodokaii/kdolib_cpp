@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 19:29:20 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 10:59:48 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ class BNFParser: public kdo::string_view
 		virtual std::string	getFormatName(void) const;
 		virtual BNFParser	*clone(void) const = 0;
 		virtual BNFFind		find(std::string const &name, size_t depth = BNF_INFINI) const;
-		virtual int			parse(std::string &str, size_t start = 0) = 0;
-		virtual int			parse(kdo::string_view const &str, size_t start = 0) = 0;
+		virtual int			parse(std::string &str, size_t start = 0, size_t len = std::string::npos);
+		virtual int			parse(kdo::string_view const &str, size_t start = 0, size_t len = std::string::npos) = 0;
 		virtual BNFAlts		operator|(BNFParser const &other) const;
 		virtual BNFAlts		operator|(std::string const &str) const;
 		virtual BNFAlts		operator|(char c) const;

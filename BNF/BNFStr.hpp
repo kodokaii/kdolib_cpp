@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 19:52:55 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:02:25 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ class BNFStr: public BNFParser
 					BNFStr(BNFStr const &other);
 					~BNFStr(void);
 		BNFParser	*clone(void) const;
-		int			parse(std::string &str, size_t start = 0);
-		int			parse(kdo::string_view const &str, size_t start = 0);
+		int			parse(kdo::string_view const &str, size_t start = 0, size_t len = std::string::npos);
 		BNFStr		&operator=(BNFStr const &other);
 };

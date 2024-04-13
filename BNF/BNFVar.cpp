@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 14:51:49 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:11:12 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,14 @@ BNFParser	*BNFVar::clone(void) const
 	return (new BNFVar(*this));
 }
 
-int			BNFVar::parse(std::string &str, size_t start)
+int			BNFVar::parse(kdo::string_view const &str, size_t start, size_t len)
 {
-	return (this->parse(kdo::string_view(str, start)));
-}
+	int	res;
 
-int			BNFVar::parse(kdo::string_view const &str, size_t start)
-{
-	ssize_t	res;
-
-	res = this->rule->parse(str, start);
+	res = this->rule->parse(str, start, len);
 	this->copy(*this->rule);
 	this->state = this->rule->getState();
-	return(this->state.fail());
+	return(res);
 }
 
 BNFFind     BNFVar::find(std::string const &name, size_t depth) const

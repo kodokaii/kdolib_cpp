@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 14:56:04 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:00:53 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ kdo::State const	&BNFParser::getState(void) const
 std::string			BNFParser::getFormatName(void) const
 {
 	return (this->name);
+}
+
+int					BNFParser::parse(std::string &str, size_t start, size_t len)
+{
+	return (this->parse(kdo::string_view(str), start, len));
 }
 
 BNFFind				BNFParser::find(std::string const &name, size_t depth) const

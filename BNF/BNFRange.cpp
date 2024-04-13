@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 16:06:01 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:02:15 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,9 @@ BNFParser	*BNFRange::clone(void) const
 	return (new BNFRange(*this));
 }
 
-int			BNFRange::parse(std::string &str, size_t start)
+int			BNFRange::parse(kdo::string_view const &str, size_t start, size_t len)
 {
-	return (this->parse(kdo::string_view(str, start)));
-}
-
-int			BNFRange::parse(kdo::string_view const &str, size_t start)
-{
-	if (str.size() < start || str[start] < this->cMin || this->cMax < str[start])
+	if (!len || str.size() < start || str[start] < this->cMin || this->cMax < str[start])
 	{
 		this->clear();
 		this->state.set(kdo::failbit);

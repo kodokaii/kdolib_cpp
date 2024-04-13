@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 16:10:15 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:41:47 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,14 @@ BNFParser	*BNFAlts::clone(void) const
 	return (new BNFAlts(*this));
 }
 
-int			BNFAlts::parse(std::string &str, size_t start)
-{
-	return (this->parse(kdo::string_view(str, start)));
-}
-
-int			BNFAlts::parse(kdo::string_view const &str, size_t start)
+int			BNFAlts::parse(kdo::string_view const &str, size_t start, size_t len)
 {
 	t_uint	i;
 
 	this->ruleEnd = 0;
 	for (i = 0; i < this->rules.size(); ++i)
 	{
-		this->rules[i]->parse(str, start);
+		this->rules[i]->parse(str, start, len);
 		if ((this->rules[this->ruleEnd]->getState() == this->rules[i]->getState()
 				&& this->rules[this->ruleEnd]->size() < this->rules[i]->size())
 			|| (this->rules[this->ruleEnd]->getState().fail() && this->rules[i]->getState().good()))

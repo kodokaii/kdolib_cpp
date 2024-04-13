@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/10 14:32:56 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:29:53 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ class BNFRep: public BNFParser
 					~BNFRep(void);
 		std::string getFormatName(void) const;
 		BNFParser	*clone(void) const;
-		int			parse(std::string &str, size_t start = 0);
-		int			parse(kdo::string_view const &str, size_t start = 0);
+		int			parse(kdo::string_view const &str, size_t start = 0, size_t len = std::string::npos);
 		BNFFind     find(std::string const &name, size_t depth = BNF_INFINI) const;
 		BNFFind		operator[](std::string const &name) const;
 		BNFRep		&operator=(BNFRep const &other);
