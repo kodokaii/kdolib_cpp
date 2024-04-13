@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/12 18:35:20 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:59:01 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ namespace kdo
 		this->len = other.len;
 	}
 
-	char const							*string_view::c_str(void)
+	char const							*string_view::c_str(void) const
 	{
 		return (this->str->c_str() + this->start());
 	}

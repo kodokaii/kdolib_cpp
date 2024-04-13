@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/17 23:01:03 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:50:28 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ class SocketTcpClient: protected Socket
 						~SocketTcpClient(void);
 		ssize_t			send(void const *buf, size_t len, int flags = 0) const;
 		ssize_t			send(std::string const &str, int flags = 0) const;
+		ssize_t			send(kdo::string_view const &str, int flags = 0) const;
 		ssize_t			recv(void *buf, size_t len, int flags = 0) const;
 		ssize_t			recv(std::string &str, int flags = 0) const;
 		int				connect(int socketConnected);

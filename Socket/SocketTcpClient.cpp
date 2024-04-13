@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/08 12:03:53 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:55:07 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ ssize_t			SocketTcpClient::send(void const *buf, size_t len, int flags) const
 }
 
 ssize_t			SocketTcpClient::send(std::string const &str, int flags) const
+{
+	return (::send(this->fd, str.c_str(), str.size(), flags));
+}
+
+ssize_t			SocketTcpClient::send(kdo::string_view const &str, int flags) const
 {
 	return (::send(this->fd, str.c_str(), str.size(), flags));
 }
