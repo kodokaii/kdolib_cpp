@@ -36,17 +36,17 @@ BNFParser	*BNFStr::clone(void) const
 
 int			BNFStr::parse(kdo::string_view const &str, size_t start, size_t len)
 {
-	if (this->ref.size() < len || str.size() < start + this->ref.size() || str.compare(start, this->ref.length(), this->ref))
+	if (this->ref.size() < len || str.size() <= start + this->ref.size() || str.compare(start, this->ref.length(), this->ref))
 	{
-		this->clear();
+		this->set(str.data(), str.start() + start, 0);
 		this->state.set(kdo::failbit);
-		if (str.size() < start + this->ref.length())
+		if (this->ref.size() < len || str.size() <= start + this->ref.size())
 			this->state.add(kdo::eofbit);
 		return (EXIT_FAILURE);
 	}
-	this->set(str.data(), str.start() + start, this->ref.length());
+	this->set(str.data(), str.start() + start, this->ref.size());
 	this->state.set(kdo::goodbit);
-	if (str.size() == start + this->ref.length())
+	if (str.size() == start + this->ref.size() + 1)
 		this->state.add(kdo::eofbit);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 11:37:32 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:55:44 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,12 @@ int			BNFRep::parse(kdo::string_view const &str, size_t start, size_t len)
 	{
 		if (this->rules.size() <= i)
 			this->rules.push_back(this->rule->clone());
-		if (this->rules[i]->parse(str, start + this->size(), len - this->size())
-			|| this->rules[i]->getState().eof())
+		if (this->rules[i]->parse(str, start + this->size(), len - this->size()))
 			break;
+		if (this->rules[i]->getState().eof())
+			this->state.add(kdo::eofbit);
 		*this += this->rules[i]->size();
 	}
-	if (i < this->max && this->rules[i]->getState().eof())
-		this->state.add(kdo::eofbit);
 	if (i < this->min)
 	{
 		*this += this->rules[i]->size();

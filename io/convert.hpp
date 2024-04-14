@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/03/19 15:29:34 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:10:23 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,13 @@ namespace kdo
 	{
 		std::stringstream	ss;
 		
-		ss << std::setbase(base) << n;
+		if (1 < sizeof(integer))
+			ss << std::setbase(base) << n;
+		else
+			ss << std::setbase(base) << (int)n;
 		return (ss.str());
 	}
 
-	bool	allConverted(std::ios_base::iostate state);
+	std::string	chex(unsigned char c);
+	bool		allConverted(std::ios_base::iostate state);
 }

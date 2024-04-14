@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 11:02:15 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:38:25 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ BNFRange::BNFRange(std::string const &name, t_uchar cMin, t_uchar cMax):	BNFPars
 {
 }
 
-BNFRange::BNFRange(t_uchar cMin, t_uchar cMax):	BNFParser("%x" + kdo::itoa(cMin, 16) + '-' + kdo::itoa(cMax, 16)),
+BNFRange::BNFRange(t_uchar cMin, t_uchar cMax):	BNFParser("%x" + kdo::chex(cMin) + '-' + kdo::chex(cMax)),
 												cMin(cMin),
 												cMax(cMax)	
 {
@@ -41,17 +41,17 @@ BNFParser	*BNFRange::clone(void) const
 
 int			BNFRange::parse(kdo::string_view const &str, size_t start, size_t len)
 {
-	if (!len || str.size() < start || str[start] < this->cMin || this->cMax < str[start])
+	if (!len || str.size() <= start || str[start] < this->cMin || this->cMax < str[start])
 	{
-		this->clear();
+		this->set(str.data(), str.start() + start, 0);
 		this->state.set(kdo::failbit);
-		if (str.size() < start)
+		if (!len || str.size() <= start)
 			this->state.add(kdo::eofbit);
 		return (EXIT_FAILURE);
 	}
 	this->set(str.data(), str.start() + start, 1);
 	this->state.set(kdo::goodbit);
-	if (str.size() == start)
+	if (str.size() == start + 1)
 		this->state.add(kdo::eofbit);
 	return (EXIT_SUCCESS);
 }

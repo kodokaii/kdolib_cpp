@@ -1,11 +1,11 @@
 NAME 		= kdolib.a
 
-CCPP		= c++
+CXX			= c++
 RM			= rm -f
 CLONE 		= git clone --depth=1
 
-CPPFLAGS	+= -Wall -Wextra -Werror -std=c++98
-CPPLINKS	=
+CXXFLAGS	+= -Wall -Wextra -Werror -std=c++98
+LDLIBS		=
 
 SRC 		= BNF/BNFAlts.cpp\
 			  BNF/BNFCat.cpp\
@@ -34,7 +34,7 @@ $(NAME): $(OBJ)
 	ar crs $(NAME) $(OBJ)
 
 %.o: %.cpp
-	$(CCPP) $(CPPFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)

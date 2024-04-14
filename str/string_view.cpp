@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 18:47:30 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:00:26 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ namespace kdo
 
 	size_t								string_view::size(void) const
 	{
-		if (this->str->size() <= this->pos)
+		if (!this->str || this->str->size() <= this->pos)
 			return (0);
 		if (this->str->size() <= this->pos + this->len)
 			return (this->str->size() - this->pos);
@@ -115,7 +115,7 @@ namespace kdo
 
 	size_t								string_view::length(void) const
 	{
-		if (this->str->length() <= this->pos)
+		if (!this->str || this->str->length() <= this->pos)
 			return (0);
 		if (this->str->length() <= this->pos + this->len)
 			return (this->str->length() - this->pos);
@@ -229,7 +229,7 @@ namespace kdo
 
 	std::ostream						&string_view::put(std::ostream &stream, size_t pos, size_t len) const
 	{
-		return (stream << std::setw(std::min(this->size(), len)) << (this->str->c_str() + this->start() + pos));
+		return (stream.write(this->str->c_str() + this->start() + pos, std::min(this->size(), len)));
 	}
 
 	kdo::string_view					string_view::substr(size_t pos, size_t len) const
@@ -302,6 +302,7 @@ namespace kdo
 		{
 			if ((*this->str)[i] == c)
 				return (i);
+			i++;
 		}
 		return (std::string::npos);
 

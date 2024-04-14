@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 20:25:26 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:38:28 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef unsigned char	t_uchar;
 
 namespace kdo
 {
-	std::string					strtrim(const std::string &str, const std::string set);
-	std::string					strupper(std::string str);
+	std::string	strtrim(const std::string &str, const std::string set);
+	std::string	strupper(std::string str);
 }
 
 #include "str/string_view.hpp"
