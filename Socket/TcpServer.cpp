@@ -6,20 +6,20 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/08 12:07:18 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:51:38 by nlaerema         ###   ########.fr       */
 /*                                                                            */ /* ************************************************************************** */
 
 #include "TcpServer.hpp"
 
 TcpServer::TcpServer(void):	connected(false),
-										backlog(SOCKET_TCP_SERVER_INVALID_BACKLOG),
-										addrError(0)
+							backlog(TCP_SERVER_INVALID_BACKLOG),
+							addrError(0)
 {
 }
 
 TcpServer::TcpServer(std::string const &port, int backlog):	connected(false),
-																		backlog(SOCKET_TCP_SERVER_INVALID_BACKLOG),
-																		addrError(0)
+															backlog(TCP_SERVER_INVALID_BACKLOG),
+															addrError(0)
 {
 
 	this->connect(port, backlog);

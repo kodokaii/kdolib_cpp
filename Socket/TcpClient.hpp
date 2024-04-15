@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/15 12:59:33 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:50:46 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <netdb.h>
 #include "../kdolib.hpp"
 
-#define	SOCKET_TCP_CLIENT_BUF_SIZE 512
+#define	TCP_CLIENT_BUF_SIZE 512
 
 class TcpServer;
 

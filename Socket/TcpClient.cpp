@@ -6,25 +6,25 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/15 12:57:27 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:52:16 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "TcpClient.hpp"
 
 TcpClient::TcpClient(void):	connected(false),
-										addrError(0)
+							addrError(0)
 {
 }
 
 TcpClient::TcpClient(int fd):	connected(false),
-											addrError(0)
+								addrError(0)
 {
 	this->connect(fd);
 }
 
 TcpClient::TcpClient(std::string const &addr, std::string const port):	connected(false),
-																					addrError(0)
+																		addrError(0)
 {
 	this->connect(addr, port);
 }
@@ -68,14 +68,14 @@ ssize_t			TcpClient::recv(void *buf, size_t len, int flags) const
 
 ssize_t			TcpClient::recv(std::string &str, int flags) const
 {
-	static char	buf[SOCKET_TCP_CLIENT_BUF_SIZE];
-	ssize_t		bytes_recv(SOCKET_TCP_CLIENT_BUF_SIZE);
+	static char	buf[TCP_CLIENT_BUF_SIZE];
+	ssize_t		bytes_recv(TCP_CLIENT_BUF_SIZE);
 	ssize_t		all_bytes_recv(0);
 
 	str.clear();
-	while (bytes_recv == SOCKET_TCP_CLIENT_BUF_SIZE)
+	while (bytes_recv == TCP_CLIENT_BUF_SIZE)
 	{
-		bytes_recv = ::recv(this->fd, buf, SOCKET_TCP_CLIENT_BUF_SIZE, flags);
+		bytes_recv = ::recv(this->fd, buf, TCP_CLIENT_BUF_SIZE, flags);
 		if (0 < bytes_recv)
 		{
 			all_bytes_recv += bytes_recv;
