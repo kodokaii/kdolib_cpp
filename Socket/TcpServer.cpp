@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SocketTcpServer.cpp                                :+:      :+:    :+:   */
+/*   TcpServer.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,15 +9,15 @@
 /*   Updated: 2024/04/08 12:07:18 by nlaerema         ###   ########.fr       */
 /*                                                                            */ /* ************************************************************************** */
 
-#include "SocketTcpServer.hpp"
+#include "TcpServer.hpp"
 
-SocketTcpServer::SocketTcpServer(void):	connected(false),
+TcpServer::TcpServer(void):	connected(false),
 										backlog(SOCKET_TCP_SERVER_INVALID_BACKLOG),
 										addrError(0)
 {
 }
 
-SocketTcpServer::SocketTcpServer(std::string const &port, int backlog):	connected(false),
+TcpServer::TcpServer(std::string const &port, int backlog):	connected(false),
 																		backlog(SOCKET_TCP_SERVER_INVALID_BACKLOG),
 																		addrError(0)
 {
@@ -25,16 +25,16 @@ SocketTcpServer::SocketTcpServer(std::string const &port, int backlog):	connecte
 	this->connect(port, backlog);
 }
 
-SocketTcpServer::~SocketTcpServer(void)
+TcpServer::~TcpServer(void)
 {
-	std::map<int, SocketTcpClient *>::iterator	it;
+	std::map<int, TcpClient *>::iterator	it;
 
 	for (it = this->clients.begin(); it != this->clients.end(); ++it)
 		delete it->second;
 	this->disconnect();
 }
 
-int				SocketTcpServer::getAddrs(struct addrinfo **res, std::string const &service)
+int				TcpServer::getAddrs(struct addrinfo **res, std::string const &service)
 {
 	struct addrinfo	hints = {};
 	int				error;
@@ -46,7 +46,7 @@ int				SocketTcpServer::getAddrs(struct addrinfo **res, std::string const &servi
 	return (error);
 }
 
-int				SocketTcpServer::connect(std::string const &port, int backlog)
+int				TcpServer::connect(std::string const &port, int backlog)
 {
 	struct addrinfo				*addrs;
 	struct addrinfo				*cr;
@@ -78,7 +78,7 @@ int				SocketTcpServer::connect(std::string const &port, int backlog)
 	return (EXIT_SUCCESS);
 }
 
-int				SocketTcpServer::accept(SocketTcpClient const *&client)
+int				TcpServer::accept(TcpClient const *&client)
 {
 	struct sockaddr_storage clientAddr;
 	socklen_t				addrSize;
@@ -88,15 +88,15 @@ int				SocketTcpServer::accept(SocketTcpClient const *&client)
 	clientSocket = ::accept(this->fd, (struct sockaddr *)&clientAddr, &addrSize);
 	if (clientSocket == INVALID_FD)
 		return (EXIT_ERRNO);
-	this->clients[clientSocket] = new SocketTcpClient(clientSocket);
+	this->clients[clientSocket] = new TcpClient(clientSocket);
 	client = this->clients[clientSocket];
 	return (EXIT_SUCCESS);
 }
 
-int				SocketTcpServer::broadcast(std::string const &str, int flags)
+int				TcpServer::broadcast(std::string const &str, int flags)
 {	
 	int											error(0);
-	std::map<int, SocketTcpClient *>::iterator	it;
+	std::map<int, TcpClient *>::iterator	it;
 
 	for (it = this->clients.begin(); it != this->clients.end(); ++it)
 	{
@@ -106,10 +106,10 @@ int				SocketTcpServer::broadcast(std::string const &str, int flags)
 	return (error);
 }
 
-int				SocketTcpServer::broadcast(void const *buf, size_t len, int flags)
+int				TcpServer::broadcast(void const *buf, size_t len, int flags)
 {
 	int											error(0);
-	std::map<int, SocketTcpClient *>::iterator	it;
+	std::map<int, TcpClient *>::iterator	it;
 
 	for (it = this->clients.begin(); it != this->clients.end(); ++it)
 	{
@@ -119,9 +119,9 @@ int				SocketTcpServer::broadcast(void const *buf, size_t len, int flags)
 	return (error);
 }
 
-void			SocketTcpServer::disconnect(void)
+void			TcpServer::disconnect(void)
 {
-	std::map<int, SocketTcpClient *>::iterator	it;
+	std::map<int, TcpClient *>::iterator	it;
 
 	this->close();
 	this->connected = false;
@@ -130,9 +130,9 @@ void			SocketTcpServer::disconnect(void)
 	this->clients.clear();
 }
 
-void			SocketTcpServer::disconnectClient(int clientSocket)
+void			TcpServer::disconnectClient(int clientSocket)
 {
-	std::map<int, SocketTcpClient *>::iterator  it;
+	std::map<int, TcpClient *>::iterator  it;
 
 	it = this->clients.find(clientSocket);
 	if (it != this->clients.end())
@@ -142,9 +142,9 @@ void			SocketTcpServer::disconnectClient(int clientSocket)
 	}
 }
 
-int				SocketTcpServer::getClient(SocketTcpClient const *&client, int clientSocket)
+int				TcpServer::getClient(TcpClient const *&client, int clientSocket)
 {
-	std::map<int, SocketTcpClient *>::iterator  it;
+	std::map<int, TcpClient *>::iterator  it;
 
 	it = this->clients.find(clientSocket);
 	if (it == this->clients.end())
@@ -153,17 +153,17 @@ int				SocketTcpServer::getClient(SocketTcpClient const *&client, int clientSock
 	return (EXIT_SUCCESS);
 }
 
-bool			SocketTcpServer::isConnected(void) const
+bool			TcpServer::isConnected(void) const
 {
 	return (this->connected);
 }
 
-int				SocketTcpServer::getAddrError(void) const
+int				TcpServer::getAddrError(void) const
 {
 	return (this->addrError);
 }
 
-int				SocketTcpServer::getBacklog(void) const
+int				TcpServer::getBacklog(void) const
 {
 	return (this->backlog);
 }

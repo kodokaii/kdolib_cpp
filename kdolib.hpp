@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/14 17:38:28 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:58:41 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ namespace kdo
 #include "BNF/BNFVar.hpp"
 
 #include "Socket/Socket.hpp"
-#include "Socket/SocketTcpClient.hpp"
-#include "Socket/SocketTcpServer.hpp"
+#include "Socket/TcpClient.hpp"
+#include "Socket/TcpServer.hpp"

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SocketTcpClient.hpp                                :+:      :+:    :+:   */
+/*   TcpClient.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 15:50:28 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:59:33 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 #define	SOCKET_TCP_CLIENT_BUF_SIZE 512
 
-class SocketTcpServer;
+class TcpServer;
 
-class SocketTcpClient: protected Socket
+class TcpClient: protected Socket
 {
 	protected:
 		bool			connected;
@@ -29,10 +29,10 @@ class SocketTcpClient: protected Socket
 							std::string const &node, std::string const &service) const;
 
 	public:
-						SocketTcpClient(void);
-						SocketTcpClient(int socketConnected);
-						SocketTcpClient(std::string const &addr, std::string const port);
-						~SocketTcpClient(void);
+						TcpClient(void);
+						TcpClient(int socketConnected);
+						TcpClient(std::string const &addr, std::string const port);
+						~TcpClient(void);
 		ssize_t			send(void const *buf, size_t len, int flags = 0) const;
 		ssize_t			send(std::string const &str, int flags = 0) const;
 		ssize_t			send(kdo::string_view const &str, int flags = 0) const;
@@ -44,6 +44,6 @@ class SocketTcpClient: protected Socket
 		bool			isConnected(void) const;;
 		int				getAddrError(void) const;
 		using			Socket::getFd;
-		SocketTcpClient	const &operator<<(std::string const &str) const;
+		TcpClient const	&operator<<(std::string const &str) const;
 		std::string		&operator>>(std::string &str) const;
 };

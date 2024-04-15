@@ -19,8 +19,8 @@ SRC 		= BNF/BNFAlts.cpp\
 			  BNF/BNFVar.cpp\
 			  io/convert.cpp\
 			  Socket/Socket.cpp\
-			  Socket/SocketTcpClient.cpp\
-			  Socket/SocketTcpServer.cpp\
+			  Socket/TcpClient.cpp\
+			  Socket/TcpServer.cpp\
 			  State/State.cpp\
 			  str/string_view.cpp\
 			  str/strtrim.cpp\

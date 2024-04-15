@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SocketTcpClient.cpp                                :+:      :+:    :+:   */
+/*   TcpClient.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 15:55:07 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:57:27 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "SocketTcpClient.hpp"
+#include "TcpClient.hpp"
 
-SocketTcpClient::SocketTcpClient(void):	connected(false),
+TcpClient::TcpClient(void):	connected(false),
 										addrError(0)
 {
 }
 
-SocketTcpClient::SocketTcpClient(int fd):	connected(false),
+TcpClient::TcpClient(int fd):	connected(false),
 											addrError(0)
 {
 	this->connect(fd);
 }
 
-SocketTcpClient::SocketTcpClient(std::string const &addr, std::string const port):	connected(false),
+TcpClient::TcpClient(std::string const &addr, std::string const port):	connected(false),
 																					addrError(0)
 {
 	this->connect(addr, port);
 }
 
-SocketTcpClient::~SocketTcpClient(void)
+TcpClient::~TcpClient(void)
 {
 	this->disconnect();
 }
 
-int				SocketTcpClient::getAddrs(struct addrinfo **res,
+int				TcpClient::getAddrs(struct addrinfo **res,
 				std::string const &node, std::string const &service) const
 {
 	struct addrinfo	hints = {};
@@ -46,27 +46,27 @@ int				SocketTcpClient::getAddrs(struct addrinfo **res,
 	return (error);
 }
 
-ssize_t			SocketTcpClient::send(void const *buf, size_t len, int flags) const
+ssize_t			TcpClient::send(void const *buf, size_t len, int flags) const
 {
 	return (::send(this->fd, buf, len, flags));
 }
 
-ssize_t			SocketTcpClient::send(std::string const &str, int flags) const
+ssize_t			TcpClient::send(std::string const &str, int flags) const
 {
 	return (::send(this->fd, str.c_str(), str.size(), flags));
 }
 
-ssize_t			SocketTcpClient::send(kdo::string_view const &str, int flags) const
+ssize_t			TcpClient::send(kdo::string_view const &str, int flags) const
 {
 	return (::send(this->fd, str.c_str(), str.size(), flags));
 }
 
-ssize_t			SocketTcpClient::recv(void *buf, size_t len, int flags) const
+ssize_t			TcpClient::recv(void *buf, size_t len, int flags) const
 {
 	return (::recv(this->fd, buf, len, flags));
 }
 
-ssize_t			SocketTcpClient::recv(std::string &str, int flags) const
+ssize_t			TcpClient::recv(std::string &str, int flags) const
 {
 	static char	buf[SOCKET_TCP_CLIENT_BUF_SIZE];
 	ssize_t		bytes_recv(SOCKET_TCP_CLIENT_BUF_SIZE);
@@ -87,7 +87,7 @@ ssize_t			SocketTcpClient::recv(std::string &str, int flags) const
 	return (all_bytes_recv);
 }
 
-int				SocketTcpClient::connect(int socketConnected)
+int				TcpClient::connect(int socketConnected)
 {
 	int			socketType;
 	socklen_t	typeSize;
@@ -101,7 +101,7 @@ int				SocketTcpClient::connect(int socketConnected)
 	return (EXIT_SUCCESS);
 }
 
-int				SocketTcpClient::connect(std::string const &addr, std::string const &port)
+int				TcpClient::connect(std::string const &addr, std::string const &port)
 {
 	struct addrinfo				*addrs;
 	struct addrinfo				*cr;
@@ -128,7 +128,7 @@ int				SocketTcpClient::connect(std::string const &addr, std::string const &port
 	return (EXIT_SUCCESS);
 }
 
-void			SocketTcpClient::disconnect(void)
+void			TcpClient::disconnect(void)
 {
 	if (this->isConnected())
 	{
@@ -137,23 +137,23 @@ void			SocketTcpClient::disconnect(void)
 	}
 }
 
-bool			SocketTcpClient::isConnected(void) const
+bool			TcpClient::isConnected(void) const
 {
 	return (this->connected);
 }
 
-int				SocketTcpClient::getAddrError(void) const
+int				TcpClient::getAddrError(void) const
 {
 	return (this->addrError);
 }
 
-SocketTcpClient	const &SocketTcpClient::operator<<(std::string const &str) const
+TcpClient	const &TcpClient::operator<<(std::string const &str) const
 {
 	this->send(str);
 	return (*this);
 }
 
-std::string		&SocketTcpClient::operator>>(std::string &str) const
+std::string		&TcpClient::operator>>(std::string &str) const
 {
 	this->recv(str);
 	return (str);
