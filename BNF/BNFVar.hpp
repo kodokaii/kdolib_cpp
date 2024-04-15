@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/13 13:10:07 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:07:53 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class BNFVar: public BNFParser
 		BNFParser	*rule;
 
 	public:
-					BNFVar(std::string const &name);
+					BNFVar(std::string const &name = "");
 					BNFVar(std::string const &name, BNFParser const &rule);
 					BNFVar(BNFVar const &other);
 					~BNFVar(void);
