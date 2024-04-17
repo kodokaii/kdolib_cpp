@@ -7,24 +7,25 @@ CLONE 		= git clone --depth=1
 CXXFLAGS	+= -Wall -Wextra -Werror -std=c++98
 LDLIBS		=
 
-SRC 		= BNF/BNFAlts.cpp\
+SRC 		= Socket/Socket.cpp\
+			  Socket/TcpServer.cpp\
+			  Socket/TcpClient.cpp\
+			  io/convert.cpp\
+			  str/strupper.cpp\
+			  str/strtrim.cpp\
+			  str/string_view.cpp\
+			  str/stricmp.cpp\
+			  State/State.cpp\
+			  BNF/BNFAlts.cpp\
+			  BNF/BNFParser.cpp\
 			  BNF/BNFCat.cpp\
 			  BNF/BNFChar.cpp\
 			  BNF/BNFFind.cpp\
 			  BNF/BNFInher.cpp\
-			  BNF/BNFParser.cpp\
 			  BNF/BNFRange.cpp\
 			  BNF/BNFRep.cpp\
 			  BNF/BNFStr.cpp\
-			  BNF/BNFVar.cpp\
-			  io/convert.cpp\
-			  Socket/Socket.cpp\
-			  Socket/TcpClient.cpp\
-			  Socket/TcpServer.cpp\
-			  State/State.cpp\
-			  str/string_view.cpp\
-			  str/strtrim.cpp\
-			  str/strupper.cpp
+			  BNF/BNFVar.cpp
 
 OBJ 		= $(SRC:.cpp=.o)
 
