@@ -6,7 +6,7 @@
 /*   By: nlaerema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:45:41 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/17 17:32:20 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:53:27 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,6 @@ namespace kdo
 			i++;
 		if (!s1[i] && i == s2.size())
 			return (0);
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	}
-
-	int	stricmp(char const *s1 , char const *s2)
-	{
-		size_t	i;
-
-		i = 0;
-		while (s1[i] && std::tolower(s1[i]) == std::tolower(s2[i]))
-			i++;
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	}
 }

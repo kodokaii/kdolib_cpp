@@ -6,7 +6,7 @@
 /*   By: nlaerema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:29:49 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/14 13:10:02 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:51:53 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@ namespace kdo
 		return (ss.str());
 	}
 
+	std::ios_base::iostate	convert(std::string &output, std::string const &input)
+	{
+		output = input;
+		return (std::ios_base::iostate());
+	}
+
 	bool    allConverted(std::ios_base::iostate state)
 	{
 		return (!(state ^ std::ios::eofbit & (std::ios::badbit | std::ios::eofbit)));
 	}
+
 }
