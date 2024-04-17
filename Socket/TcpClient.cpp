@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/15 13:52:16 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:20:18 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int				TcpClient::getAddrs(struct addrinfo **res,
 ssize_t			TcpClient::send(void const *buf, size_t len, int flags) const
 {
 	return (::send(this->fd, buf, len, flags));
+}
+
+ssize_t			TcpClient::send(char const *str, int flags) const
+{
+	return (::send(this->fd, str, strlen(str), flags));
 }
 
 ssize_t			TcpClient::send(std::string const &str, int flags) const
@@ -147,7 +152,19 @@ int				TcpClient::getAddrError(void) const
 	return (this->addrError);
 }
 
-TcpClient	const &TcpClient::operator<<(std::string const &str) const
+TcpClient const	&TcpClient::operator<<(char const *str) const
+{
+	this->send(str);
+	return (*this);
+}
+
+TcpClient const	&TcpClient::operator<<(kdo::string_view const &str) const
+{
+	this->send(str);
+	return (*this);
+}
+
+TcpClient const	&TcpClient::operator<<(std::string const &str) const
 {
 	this->send(str);
 	return (*this);

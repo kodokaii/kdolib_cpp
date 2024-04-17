@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/15 13:51:38 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:40:02 by nlaerema         ###   ########.fr       */
 /*                                                                            */ /* ************************************************************************** */
 
 #include "TcpServer.hpp"
@@ -93,6 +93,19 @@ int				TcpServer::accept(TcpClient const *&client)
 	return (EXIT_SUCCESS);
 }
 
+int				TcpServer::broadcast(void const *buf, size_t len, int flags)
+{
+	int											error(0);
+	std::map<int, TcpClient *>::iterator	it;
+
+	for (it = this->clients.begin(); it != this->clients.end(); ++it)
+	{
+		if (it->second->send(buf, len, flags) < 0)
+			error++;
+	}
+	return (error);
+}
+
 int				TcpServer::broadcast(std::string const &str, int flags)
 {	
 	int											error(0);
@@ -106,14 +119,14 @@ int				TcpServer::broadcast(std::string const &str, int flags)
 	return (error);
 }
 
-int				TcpServer::broadcast(void const *buf, size_t len, int flags)
+int				TcpServer::broadcast(kdo::string_view const &str, int flags)
 {
 	int											error(0);
 	std::map<int, TcpClient *>::iterator	it;
 
 	for (it = this->clients.begin(); it != this->clients.end(); ++it)
 	{
-		if (it->second->send(buf, len, flags) < 0)
+		if (it->second->send(str, flags) < 0)
 			error++;
 	}
 	return (error);

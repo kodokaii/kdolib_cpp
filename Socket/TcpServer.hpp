@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/15 13:51:52 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:37:53 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ class TcpServer: protected Socket
 						~TcpServer(void);
 		int				connect(std::string const &port, int backlog = TCP_SERVER_DEFAULT_BACKLOG);
 		int				accept(TcpClient const *&client);
-		int				broadcast(std::string const &str, int flags = 0);
 		int				broadcast(void const *buf, size_t len, int flags = 0);
+		int				broadcast(std::string const &str, int flags = 0);
+		int				broadcast(kdo::string_view const &str, int flags = 0);
 		void			disconnect(void);
 		void			disconnectClient(int clientSocket);
 		int				getClient(TcpClient const *&client, int clientSocket);

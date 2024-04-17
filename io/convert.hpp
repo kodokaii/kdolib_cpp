@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/14 13:10:23 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:54:55 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 namespace kdo
 {
-	template<typename To, typename From>
+	template<class To, class From>
 	std::ios_base::iostate	convert(To &output, From const &input)
 	{
 		std::stringstream	ss;
@@ -28,14 +28,14 @@ namespace kdo
 		return (ss.rdstate());
 	}
 
-	template<> inline
-	std::ios_base::iostate	convert(std::string &output, std::string const &input)
+	template<>
+	std::ios_base::iostate	convert<std::string>(std::string &output, std::string const &input)
 	{
 		output = input;
 		return (std::ios_base::iostate());
 	}
 
-	template<typename integer>
+	template<class integer>
 	std::string	itoa(integer n, int base = 10)
 	{
 		std::stringstream	ss;
