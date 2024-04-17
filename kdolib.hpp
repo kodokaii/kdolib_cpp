@@ -6,13 +6,15 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/15 12:58:41 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:53:36 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <map>
+#include <set>
+#include <queue>
 #include <cerrno>
 #include <cstdio>
 #include <string>
