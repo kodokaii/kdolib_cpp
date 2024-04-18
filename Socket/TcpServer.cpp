@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/17 17:40:02 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:23:54 by nlaerema         ###   ########.fr       */
 /*                                                                            */ /* ************************************************************************** */
 
 #include "TcpServer.hpp"
@@ -27,10 +27,6 @@ TcpServer::TcpServer(std::string const &port, int backlog):	connected(false),
 
 TcpServer::~TcpServer(void)
 {
-	std::map<int, TcpClient *>::iterator	it;
-
-	for (it = this->clients.begin(); it != this->clients.end(); ++it)
-		delete it->second;
 	this->disconnect();
 }
 
