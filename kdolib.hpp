@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/17 13:53:36 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:18:59 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <cctype>
 #include <algorithm>
 #include <cstdarg>
+#include <cstddef>
 #include <fstream>
 #include <sstream>
 #include <unistd.h>
