@@ -6,13 +6,14 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 01:33:12 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:14:55 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BNFInher.hpp"
 
 BNFInher::BNFInher(BNFParser const &son):	kdo::string_view(son),	
+											inherState(son.getState()),
 											name(son.getName()),
 											state(son.getState())
 {

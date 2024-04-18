@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2024/04/09 01:36:30 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:13:41 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ BNFFind		BNFFind::inherFail(void) const
 
 	for (i = 0; i < this->size(); ++i)
 	{
-		if ((*this)[i].getState().fail())
+		if ((*this)[i].getInherState().fail())
 			res.push_back((*this)[i]);
 	}
 	return (res);
@@ -96,7 +96,7 @@ BNFFind		BNFFind::inherGood(void) const
 
 	for (i = 0; i < this->size(); ++i)
 	{
-		if ((*this)[i].getState().good())
+		if ((*this)[i].getInherState().good())
 			res.push_back((*this)[i]);
 	}
 	return (res);
